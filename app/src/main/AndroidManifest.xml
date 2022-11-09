@@ -14,7 +14,10 @@
         android:theme="@style/Theme.UVGram"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".PantallaInicio"
+            android:exported="false" />
+        <activity
+            android:name=".PantallaSplash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
