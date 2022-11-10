@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="startButtonsSize">260dp</dimen>
+    <dimen name="startButtonVerticalMargins">25dp</dimen>
+    <dimen name="startButtonHorizontalMargins">25dp</dimen>
+</resources>

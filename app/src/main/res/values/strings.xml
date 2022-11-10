@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">UVGram</string>
+    <string name="loginButton">Iniciar sesión</string>
+    <string name="signUpButton">Registrate</string>
 </resources>
