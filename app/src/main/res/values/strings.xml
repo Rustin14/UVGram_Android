@@ -2,4 +2,9 @@
     <string name="app_name">UVGram</string>
     <string name="loginButton">Iniciar sesión</string>
     <string name="signUpButton">Registrate</string>
+    <string name="welcome">¡Bienvenido a UVGram!</string>
+    <string name="loginText">Inicia sesión</string>
+    <string name="emailLabel">Email</string>
+    <string name="passwordHint">Contraseña</string>
+    <string name="emailHint">ejemplo@email.com</string>
 </resources>
