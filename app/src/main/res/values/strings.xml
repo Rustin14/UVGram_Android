@@ -7,4 +7,6 @@
     <string name="emailLabel">Email</string>
     <string name="passwordHint">Contraseña</string>
     <string name="emailHint">ejemplo@email.com</string>
+    <string name="forgotPassword">¿Olvidaste tu contraseña?</string>
+    <string name="forgotLink">Da click aquí.</string>
 </resources>

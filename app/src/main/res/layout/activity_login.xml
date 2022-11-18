@@ -105,12 +105,32 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/forgotLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/passwordInput"
+                android:text="@string/forgotPassword"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"/>
+
+            <Button
+                style="@style/Widget.Material3.Button.TextButton"
+                android:id="@+id/textButton"
+                android:layout_toEndOf="@+id/forgotLabel"
+                android:layout_below="@+id/passwordInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/forgotLink"
+                android:layout_marginRight=""
+                />
+
             <Button
                 android:id="@+id/elevatedButton"
                 style="@style/Widget.Material3.Button.ElevatedButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/passwordInput"
+                android:layout_below="@+id/forgotLabel"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="10dp"
