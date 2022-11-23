@@ -63,7 +63,7 @@
                     android:layout_marginBottom="@dimen/startButtonVerticalMargins"
                     android:width="@dimen/startButtonsSize"
                     android:background="@color/uvBlue"
-                    android:text="@string/signUpButton"
+                    android:text="@string/signUp"
                     android:textColor="@color/white"
                     android:fontFamily="@font/source_sans_pro_black"/>
 

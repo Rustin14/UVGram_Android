@@ -1,12 +1,20 @@
 <resources>
     <string name="app_name">UVGram</string>
     <string name="loginButton">Iniciar sesión</string>
-    <string name="signUpButton">Registrate</string>
+    <string name="signUp">Registrate</string>
     <string name="welcome">¡Bienvenido a UVGram!</string>
     <string name="loginText">Inicia sesión</string>
     <string name="emailLabel">Email</string>
     <string name="passwordHint">Contraseña</string>
     <string name="emailHint">ejemplo@email.com</string>
     <string name="forgotPassword">¿Olvidaste tu contraseña?</string>
-    <string name="forgotLink">Da click aquí.</string>
+    <string name="clickHereLink">Da click aquí.</string>
+    <string name="registrationLabel">¿No tienes una cuenta?</string>
+    <string name="nameLabel">Nombre</string>
+    <string name="confirmedPasswordLabel">Confirmar contraseña</string>
+    <string name="recoveryText">Necesitamos tu correo electrónico para validar tu identidad y puedas recuperar tu cuenta.</string>
+    <string name="emailSentText">Te hemos enviado un email con instrucciones para reestablecer tu contraseña. Si no recibes el correo electrónico después de un tiempo, revisa tu correo no deseado.</string>
+    <string name="sendText">Enviar</string>
+    <string name="changePassword">Cambiar contraseña</string>
+    <string name="passwordChangeText">Establece una nueva contraseña. Te recomendamos anotarla en algún sitio para no perderla.</string>
 </resources>

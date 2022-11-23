@@ -6,8 +6,11 @@
         <entry key="..\:/Users/flore/AndroidStudioProjects/UVGram/app/src/main/res/drawable/anim_slideshow.xml" value="0.4265" />
         <entry key="..\:/Users/flore/AndroidStudioProjects/UVGram/app/src/main/res/font/source_sans.xml" value="0.46927083333333336" />
         <entry key="..\:/Users/flore/AndroidStudioProjects/UVGram/app/src/main/res/layout/activity_inicio_sesion.xml" value="0.5" />
-        <entry key="..\:/Users/flore/AndroidStudioProjects/UVGram/app/src/main/res/layout/activity_login.xml" value="0.33" />
+        <entry key="..\:/Users/flore/AndroidStudioProjects/UVGram/app/src/main/res/layout/activity_login.xml" value="0.5" />
         <entry key="..\:/Users/flore/AndroidStudioProjects/UVGram/app/src/main/res/layout/activity_main.xml" value="0.3578125" />
+        <entry key="..\:/Users/flore/AndroidStudioProjects/UVGram/app/src/main/res/layout/activity_password_change.xml" value="0.33" />
+        <entry key="..\:/Users/flore/AndroidStudioProjects/UVGram/app/src/main/res/layout/activity_password_recovery.xml" value="0.33" />
+        <entry key="..\:/Users/flore/AndroidStudioProjects/UVGram/app/src/main/res/layout/activity_registration.xml" value="0.2" />
         <entry key="..\:/Users/flore/AndroidStudioProjects/UVGram/app/src/main/res/layout/activity_splash.xml" value="0.5541666666666667" />
       </map>
     </option>

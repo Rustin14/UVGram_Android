@@ -21,23 +21,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/pxl_20221014_215725107_crop" />
-
-        <Space
-            android:id="@+id/space"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:srcCompat="@drawable/pxl_20221001_231154257_crop" />
 
         <RelativeLayout
-            android:layout_width="409dp"
-            android:layout_height="403dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/space">
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            android:layout_marginTop="15dp">
 
             <TextView
                 android:id="@+id/welcomeText"
@@ -56,15 +48,37 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/source_sans_pro_bold"
-                android:text="@string/loginText"
+                android:text="@string/signUp"
                 android:textColor="@color/black"
-                android:textSize="32dp" />
+                android:textSize="32sp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/nameInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/loginText"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:hint="@string/nameLabel"
+                app:hintEnabled="true"
+                app:hintAnimationEnabled="true"
+                app:boxStrokeColor="@color/uvGreen"
+                app:hintTextColor="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="35dp"
+                    android:textSize="12sp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/emailInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/loginText"
+                android:layout_below="@id/nameInput"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
@@ -78,7 +92,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="35dp"
-                    android:textSize="14dp"/>
+                    android:textSize="12sp"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -100,73 +114,75 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="35dp"
-                    android:textSize="14dp"
+                    android:textSize="12sp"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/forgotLabel"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/confirmedPasswordInput"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/passwordInput"
-                android:text="@string/forgotPassword"
+                android:layout_below="@id/passwordInput"
                 android:layout_marginTop="15dp"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:hint="@string/confirmedPasswordLabel"
+                app:hintEnabled="true"
+                app:hintAnimationEnabled="true"
+                app:boxStrokeColor="@color/uvGreen"
+                app:hintTextColor="@color/black">
 
-            <Button
-                style="@style/Widget.Material3.Button.TextButton"
-                android:id="@+id/textButton"
-                android:layout_toEndOf="@+id/forgotLabel"
-                android:layout_below="@+id/passwordInput"
-                android:layout_marginLeft="-8dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/clickHereLink"
-                android:layout_marginTop="1dp"
-                android:textColor="@color/uvBlue"
-                />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="35dp"
+                    android:textSize="12sp"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/loginButton"
                 style="@style/Widget.Material3.Button.ElevatedButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/forgotLabel"
+                android:layout_below="@+id/confirmedPasswordInput"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="10dp"
                 android:backgroundTint="@color/uvBlue"
                 android:fontFamily="@font/source_sans_pro_semibold"
+                android:minHeight="48dp"
                 android:text="@string/loginText"
                 android:textColor="@color/white"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/loginButton"
                 android:layout_centerHorizontal="true">
+
                 <TextView
                     android:id="@+id/registrationLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/registrationLabel"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginLeft="10dp"/>
+                    android:text="@string/registrationLabel" />
 
                 <Button
-                    style="@style/Widget.Material3.Button.TextButton"
                     android:id="@+id/registrationButton"
-                    android:layout_toEndOf="@+id/registrationLabel"
-
-                    android:layout_marginLeft="-8dp"
+                    style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="wrap_content"
+
                     android:layout_height="wrap_content"
-                    android:text="@string/clickHereLink"
+                    android:layout_marginLeft="-8dp"
                     android:layout_marginTop="1dp"
-                    android:textColor="@color/uvBlue"
-                    />
+                    android:layout_toEndOf="@+id/registrationLabel"
+                    android:text="@string/clickHereLink"
+                    android:textColor="@color/uvBlue" />
 
             </RelativeLayout>
 
