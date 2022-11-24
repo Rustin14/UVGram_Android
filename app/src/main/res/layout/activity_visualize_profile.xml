@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".VisualizeProfile">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profilePicture"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:civ_border_width="0dp"
+                android:src="@drawable/pxl_20221001_231154257"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/profilePicture"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="35dp">
+
+                <TextView
+                    android:id="@+id/userFullNameText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fullNamePlaceholder"
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/usernameText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/userFullNameText"
+                    android:text="@string/usernamePlaceholder"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/presentationText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/usernameText"
+                    android:layout_alignRight="@+id/userFullNameText"
+                    android:text="@string/presentationPlaceholder"
+                    android:textSize="16sp"/>
+
+            </RelativeLayout>
+
+            <Button
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:id="@+id/filledTonalButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profilePicture"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="@string/editProfile"/>
+
+            <com.google.android.material.tabs.TabLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/filledTonalButton"
+                android:layout_marginTop="10dp">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:icon="@drawable/ic_baseline_photo_library_24"/>
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:icon="@drawable/ic_baseline_tag_24"
+                    />
+
+            </com.google.android.material.tabs.TabLayout>
+
+        </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
