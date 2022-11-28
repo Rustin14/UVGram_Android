@@ -75,6 +75,7 @@
                 app:hintTextColor="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailInputText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="35dp"
@@ -97,6 +98,7 @@
                 app:hintTextColor="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordInputText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="35dp"
@@ -140,7 +142,7 @@
                 android:fontFamily="@font/source_sans_pro_semibold"
                 android:text="@string/loginText"
                 android:textColor="@color/white"
-                android:textSize="16dp" />
+                android:textSize="16dp"/>
 
             <RelativeLayout
                 android:layout_width="wrap_content"

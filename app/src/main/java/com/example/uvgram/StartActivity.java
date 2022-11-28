@@ -1,6 +1,9 @@
 package com.example.uvgram;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -8,19 +11,38 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Button;
 import android.widget.ImageView;
 
-public class PantallaInicio extends AppCompatActivity {
+import com.example.uvgram.Models.LoginResponse;
 
+public class StartActivity extends AppCompatActivity {
+
+    Button loginButton;
+    Button signUpButton;
     ImageView imageViewSlides;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_sesion);
+        context = getBaseContext();
         imageViewSlides = findViewById(R.id.imageViewSlides);
         int imagesToShow[] = {R.drawable.pxl_20221001_231154257, R.drawable.pxl_20221014_215725107};
         animate(imageViewSlides, imagesToShow, 0, true);
+
+        loginButton = findViewById(R.id.loginButton);
+        loginButton.setOnClickListener(view -> {
+            Intent myIntent = new Intent(context, LoginActivity.class);
+            startActivity(myIntent);
+        });
+
+        signUpButton = findViewById(R.id.signUpButton);
+        signUpButton.setOnClickListener(view -> {
+            Intent myIntent = new Intent(context, RegistrationActivity.class);
+            startActivity(myIntent);
+        });
     }
 
     private void animate(final ImageView imageView, final int images[], final int imageIndex, final boolean forever) {
@@ -72,4 +94,7 @@ public class PantallaInicio extends AppCompatActivity {
             }
         });
     }
+
+
+
 }
