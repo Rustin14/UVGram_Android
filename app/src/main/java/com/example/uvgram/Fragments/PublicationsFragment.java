@@ -1,29 +1,28 @@
-package com.example.uvgram;
+package com.example.uvgram.Fragments;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListAdapter;
-import android.widget.RelativeLayout;
-import java.lang.reflect.Array;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.example.uvgram.Adapters.GridImagesAdapter;
+import com.example.uvgram.R;
+
 import java.util.ArrayList;
 
 public class PublicationsFragment extends Fragment{
 
     Context context;
     GridView gridView;
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

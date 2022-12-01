@@ -1,13 +1,16 @@
-package com.example.uvgram;
+package com.example.uvgram.Adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-public class ViewPagerAdapter extends FragmentStateAdapter {
+import com.example.uvgram.Fragments.VisualizeProfileFragment;
+import com.example.uvgram.CardListViewFragment;
 
-    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
+public class HomeViewPagerAdapter extends FragmentStateAdapter {
+
+    public HomeViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
 
@@ -16,9 +19,9 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 0:
-                return new PublicationsFragment();
+                return new CardListViewFragment();
             case 1:
-                return new TagsFragment();
+                return new VisualizeProfileFragment();
             default:
                 return null;
         }

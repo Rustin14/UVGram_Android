@@ -1,15 +1,15 @@
-package com.example.uvgram;
+package com.example.uvgram.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.uvgram.R;
 import com.google.android.material.snackbar.Snackbar;
 
-public class PasswordChange extends AppCompatActivity {
+public class PasswordChangeActivity extends AppCompatActivity {
 
     View contextView;
 

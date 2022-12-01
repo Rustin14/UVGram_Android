@@ -8,9 +8,10 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".LoginActivity">
+        tools:context=".Activities.LoginActivity">
 
         <ImageView
             android:id="@+id/imageView2"
@@ -61,14 +62,14 @@
                 android:textSize="32dp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/emailInput"
+                android:id="@+id/emailTextField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/loginText"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
-                android:hint="@string/emailLabel"
+                android:hint="@string/usernameLabel"
                 app:hintEnabled="true"
                 app:hintAnimationEnabled="true"
                 app:boxStrokeColor="@color/uvGreen"
@@ -84,10 +85,10 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/passwordInput"
+                android:id="@+id/passwordTextField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/emailInput"
+                android:layout_below="@id/emailTextField"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
@@ -95,6 +96,7 @@
                 app:hintEnabled="true"
                 app:hintAnimationEnabled="true"
                 app:boxStrokeColor="@color/uvGreen"
+                app:passwordToggleEnabled="true"
                 app:hintTextColor="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -103,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:minHeight="35dp"
                     android:textSize="14dp"
-                    />
+                    android:inputType="textPassword"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -111,7 +113,7 @@
                 android:id="@+id/forgotLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/passwordInput"
+                android:layout_below="@+id/passwordTextField"
                 android:text="@string/forgotPassword"
                 android:layout_marginTop="15dp"
                 android:layout_marginLeft="10dp"/>
@@ -120,7 +122,7 @@
                 style="@style/Widget.Material3.Button.TextButton"
                 android:id="@+id/textButton"
                 android:layout_toEndOf="@+id/forgotLabel"
-                android:layout_below="@+id/passwordInput"
+                android:layout_below="@+id/passwordTextField"
                 android:layout_marginLeft="-8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -161,7 +163,6 @@
                     style="@style/Widget.Material3.Button.TextButton"
                     android:id="@+id/registrationButton"
                     android:layout_toEndOf="@+id/registrationLabel"
-
                     android:layout_marginLeft="-8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

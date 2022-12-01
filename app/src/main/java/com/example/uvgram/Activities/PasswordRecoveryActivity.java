@@ -1,17 +1,17 @@
-package com.example.uvgram;
+package com.example.uvgram.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
 
+import com.example.uvgram.R;
 import com.example.uvgram.databinding.ActivityPasswordRecoveryBinding;
 import com.google.android.material.card.MaterialCardView;
 
-public class PasswordRecovery extends AppCompatActivity {
+public class PasswordRecoveryActivity extends AppCompatActivity {
 
     ActivityPasswordRecoveryBinding dataBinding;
     ProgressBar progressBar;

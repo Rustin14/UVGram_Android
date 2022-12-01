@@ -1,9 +1,11 @@
-package com.example.uvgram;
+package com.example.uvgram.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.example.uvgram.R;
 
 public class SplashActivity extends AppCompatActivity {
 

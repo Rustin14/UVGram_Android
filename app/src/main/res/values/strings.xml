@@ -23,4 +23,17 @@
     <string name="presentationPlaceholder">Aquí iría la presentación del usuario. Esto es un ejemplo.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="completeRegistration">Completa tu registro</string>
+    <string name="registrationHelperText">Ayúdanos a completar tu registro llenando los siguientes campos, así te podremos conocer mejor. </string>
+    <string name="usernameLabel">Nombre de usuario</string>
+    <string name="birthdateInput">Fecha de nacimiento</string>
+    <string name="phoneLabel">Teléfono</string>
+    <string name="presentationLabel">Presentación</string>
+    <string name="saveLabel">Guardar</string>
+    <string name="cancelLabel">Cancelar</string>
+    <string name="verificationText">Te hemos enviado un código de verificación al correo electrónico con el que te registraste. \nIngrésalo en el siguiente campo.</string>
+    <string name="resendCode">¿No recibiste el código?</string>
+    <string name="retryCodeSent">Solicita uno nuevo aquí.</string>
+    <string name="emptyInputs">No dejar campos vacíos.</string>
+    <string name="followRequests">Solicitudes de seguimiento</string>
 </resources>

@@ -8,9 +8,10 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".LoginActivity">
+        tools:context=".Activities.LoginActivity">
 
         <ImageView
             android:id="@+id/imageView2"
@@ -53,7 +54,7 @@
                 android:textSize="32sp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/nameInput"
+                android:id="@+id/verificationTextField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/loginText"
@@ -67,6 +68,7 @@
                 app:hintTextColor="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nameInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="35dp"
@@ -75,10 +77,10 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/emailInput"
+                android:id="@+id/emailTextField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/nameInput"
+                android:layout_below="@id/verificationTextField"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
@@ -89,6 +91,7 @@
                 app:hintTextColor="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailInputText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="35dp"
@@ -97,10 +100,10 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/passwordInput"
+                android:id="@+id/passwordTextField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/emailInput"
+                android:layout_below="@id/emailTextField"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
@@ -111,6 +114,7 @@
                 app:hintTextColor="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordInputText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="35dp"
@@ -120,10 +124,10 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/confirmedPasswordInput"
+                android:id="@+id/confirmedPasswordTextField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/passwordInput"
+                android:layout_below="@id/passwordTextField"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
@@ -134,6 +138,7 @@
                 app:hintTextColor="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/confirmedPasswordInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="35dp"
@@ -143,25 +148,25 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/loginButton"
+                android:id="@+id/signUpButton"
                 style="@style/Widget.Material3.Button.ElevatedButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/confirmedPasswordInput"
+                android:layout_below="@+id/confirmedPasswordTextField"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="10dp"
                 android:backgroundTint="@color/uvBlue"
                 android:fontFamily="@font/source_sans_pro_semibold"
                 android:minHeight="48dp"
-                android:text="@string/loginText"
+                android:text="@string/signUp"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/loginButton"
+                android:layout_below="@+id/signUpButton"
                 android:layout_centerHorizontal="true">
 
                 <TextView
@@ -170,13 +175,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="15dp"
-                    android:text="@string/registrationLabel" />
+                    android:text="¿Ya tienes una cuenta?" />
 
                 <Button
-                    android:id="@+id/registrationButton"
+                    android:id="@+id/loginButton"
                     style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="wrap_content"
-
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="-8dp"
                     android:layout_marginTop="1dp"

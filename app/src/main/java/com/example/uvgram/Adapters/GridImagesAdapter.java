@@ -1,4 +1,4 @@
-package com.example.uvgram;
+package com.example.uvgram.Adapters;
 
 import android.content.Context;
 import android.view.View;
@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+
+import com.example.uvgram.R;
 
 public class GridImagesAdapter extends BaseAdapter {
 

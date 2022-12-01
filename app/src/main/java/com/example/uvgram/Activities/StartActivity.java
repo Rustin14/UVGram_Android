@@ -1,4 +1,4 @@
-package com.example.uvgram;
+package com.example.uvgram.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,7 +14,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.uvgram.Models.LoginResponse;
+import com.example.uvgram.R;
 
 public class StartActivity extends AppCompatActivity {
 

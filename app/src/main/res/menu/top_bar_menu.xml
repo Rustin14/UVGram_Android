@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/edit"
+        android:icon="@drawable/ic_baseline_view_list_24"
+        android:title="@string/loginText"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/favorite"
+        android:icon="@drawable/ic_baseline_post_add_24"
+        app:showAsAction="ifRoom"
+        android:title="@string/followRequests" />
+
+</menu>
