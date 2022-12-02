@@ -7,13 +7,13 @@ import java.util.List;
 public class FollowingResponse {
 
     @SerializedName("message")
-    List<Message> message;
+    List<User> usersList;
 
-    public List<Message> getMessage() {
-        return message;
+    public List<User> getUsersList() {
+        return usersList;
     }
 
-    public void setMessage(List<Message> message) {
-        this.message = message;
+    public void setMessage(List<User> usersList) {
+        this.usersList = usersList;
     }
 }

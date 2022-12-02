@@ -14,9 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.uvgram.Connection.UVGramAPIAdapter;
-import com.example.uvgram.Models.GetUserResponse;
+import com.example.uvgram.Models.LoginMessage;
 import com.example.uvgram.Models.LoginResponse;
-import com.example.uvgram.Models.Message;
 import com.example.uvgram.R;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -36,7 +35,6 @@ public class LoginActivity extends AppCompatActivity {
     Button loginButton;
     ConstraintLayout parentLayout;
     Context context;
-    Message signedInUser;
     Button registrationButton;
 
     @Override
@@ -67,28 +65,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public Message getUser(String username) {
-        final Message[] user = new Message[1];
-        Call<GetUserResponse> userCall = UVGramAPIAdapter
-                .getApiService()
-                .getUser(username);
-
-        userCall.enqueue(new Callback<GetUserResponse>() {
-            @Override
-            public void onResponse(Call<GetUserResponse> call, Response<GetUserResponse> response) {
-                if (response.isSuccessful()) {
-                    GetUserResponse userResponse =  response.body();
-                    user[0] = userResponse.getMessage();
-                }
-            }
-            @Override
-            public void onFailure(Call<GetUserResponse> call, Throwable t) {
-                Log.w("MyTag", "requestFailed", t);
-            }
-        });
-        return user[0];
-    }
-
     public void signIn(String username, String password) {
         Call<LoginResponse> call = UVGramAPIAdapter
                 .getApiService()
@@ -98,23 +74,22 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.isSuccessful()) {
-                    tokens = response.body();
+                    LoginMessage loginMessage = response.body().getLoginMessage();
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString("ACCESS_TOKEN", tokens.getAccessToken());
-                    editor.putString("REFRESH_TOKEN", tokens.getRefreshToken());
+                    editor.putString("ACCESS_TOKEN", loginMessage.getAccessToken());
+                    editor.putString("REFRESH_TOKEN", loginMessage.getRefreshToken());
                     editor.commit();
 
-                    Message user = getUser(String.valueOf(usernameInput.getText()));
-                    Intent myIntent = new Intent(getApplicationContext(), HomepageActivity.class);
-                    myIntent.putExtra("SIGNED_IN_USER", user);
+                    Intent myIntent = new Intent(getBaseContext(), HomepageActivity.class);
+                    myIntent.putExtra("USERNAME", String.valueOf(usernameInput.getText()));
                     startActivity(myIntent);
                 }
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-
+                Log.w("MyTag", "requestFailed", t);
             }
         });
     }

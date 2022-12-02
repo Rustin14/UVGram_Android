@@ -2,7 +2,9 @@ package com.example.uvgram.Models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class GetUserResponse {
+import java.io.Serializable;
+
+public class GetUserResponse implements Serializable {
 
     @SerializedName("message")
     Message message;

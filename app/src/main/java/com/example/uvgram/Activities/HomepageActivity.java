@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.uvgram.Adapters.HomeViewPagerAdapter;
-import com.example.uvgram.Models.Message;
 import com.example.uvgram.R;
 import com.google.android.material.tabs.TabLayout;
 
@@ -14,7 +13,6 @@ public class HomepageActivity extends AppCompatActivity {
 
     ViewPager2 homepageViewPager;
     TabLayout homepageTabLayout;
-    Message signedInUser;
 
 
     @Override
@@ -26,10 +24,6 @@ public class HomepageActivity extends AppCompatActivity {
         homepageViewPager = findViewById(R.id.homepageviewPager);
         HomeViewPagerAdapter pagerAdapter = new HomeViewPagerAdapter(this);
         homepageViewPager.setAdapter(pagerAdapter);
-
-        signedInUser = (Message) getIntent().getSerializableExtra("SIGNED_IN_USER");
-
-
         homepageTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -56,7 +50,9 @@ public class HomepageActivity extends AppCompatActivity {
         });
     }
 
-
-
+    @Override
+    public void onBackPressed() {
+        this.finishAffinity();
+    }
 
 }

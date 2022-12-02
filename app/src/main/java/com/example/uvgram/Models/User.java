@@ -1,15 +1,21 @@
 package com.example.uvgram.Models;
+
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
-import java.util.Date;
 
 public class User implements Serializable {
 
+    @SerializedName("id")
     int idUser;
+    @SerializedName("name")
     String name;
+    @SerializedName("username")
     String username;
     String email;
     String password;
     String phoneNumber;
+    @SerializedName("presentation")
     String presentation;
     String birthday;
 

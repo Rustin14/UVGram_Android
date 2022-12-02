@@ -4,25 +4,14 @@ import com.google.gson.annotations.SerializedName;
 
 public class LoginResponse {
 
-    @SerializedName("refreshToken")
-    String refreshToken;
+    @SerializedName("message")
+    LoginMessage loginMessage;
 
-    @SerializedName("accessToken")
-    String accessToken;
-
-    public String getRefreshToken() {
-        return refreshToken;
+    public LoginMessage getLoginMessage() {
+        return loginMessage;
     }
 
-    public void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
-    }
-
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
+    public void setLoginMessage(LoginMessage loginMessage) {
+        this.loginMessage = loginMessage;
     }
 }

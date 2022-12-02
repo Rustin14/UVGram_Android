@@ -1,6 +1,7 @@
 package com.example.uvgram.Interfaces;
 
 import com.example.uvgram.Models.FollowingResponse;
+import com.example.uvgram.Models.GetPostsMessage;
 import com.example.uvgram.Models.GetUserResponse;
 import com.example.uvgram.Models.LoginResponse;
 import com.example.uvgram.Models.RegisterResponse;
@@ -59,6 +60,12 @@ public interface IAuthenticationService {
     @GET ("/{username}")
     Call<GetUserResponse> getUser(
         @Path("username") String username
+    );
+
+    @GET("post/user/{username}")
+    Call<GetPostsMessage> getPosts(
+            @Header("Authorization") String token,
+            @Path("username") String username
     );
 
 }

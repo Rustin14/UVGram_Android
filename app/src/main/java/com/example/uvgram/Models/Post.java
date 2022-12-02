@@ -3,9 +3,10 @@ package com.example.uvgram.Models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.io.File;
+import java.io.Serializable;
 import java.util.List;
 
-public class Post {
+public class Post implements Serializable {
 
     @SerializedName("description")
     @Expose
@@ -31,6 +32,7 @@ public class Post {
     @SerializedName("files")
     @Expose
     private List<File> files = null;
+    private String username;
 
     public String getDescription() {
         return description;
@@ -94,5 +96,13 @@ public class Post {
 
     public void setFiles(List<File> files) {
         this.files = files;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
