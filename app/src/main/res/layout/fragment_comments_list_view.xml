@@ -3,12 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.CardListViewFragment"
-    android:orientation="vertical">
+    tools:context=".Fragments.CommentsListViewFragment">
 
     <ListView
-        android:id="@+id/cardsListView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:id="@+id/commentsListView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

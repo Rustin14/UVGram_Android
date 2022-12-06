@@ -36,4 +36,6 @@
     <string name="retryCodeSent">Solicita uno nuevo aquí.</string>
     <string name="emptyInputs">No dejar campos vacíos.</string>
     <string name="followRequests">Solicitudes de seguimiento</string>
+    <string name="followText">Seguir</string>
+    <string name="writeComment">Escribe un comentario</string>
 </resources>

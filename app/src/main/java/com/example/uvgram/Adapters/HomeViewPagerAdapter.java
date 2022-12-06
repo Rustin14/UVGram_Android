@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.uvgram.Fragments.VisualizeProfileFragment;
-import com.example.uvgram.CardListViewFragment;
+import com.example.uvgram.Fragments.CardListViewFragment;
 
 public class HomeViewPagerAdapter extends FragmentStateAdapter {
 

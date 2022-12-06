@@ -59,6 +59,7 @@ public class CardListViewAdapter extends BaseAdapter implements OnDataLoaded {
         return 0;
     }
 
+    // TODO: Ajustar llamadas con implementación de MVVM
 
     private void getFollows() {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);

@@ -24,6 +24,7 @@ public class HomepageActivity extends AppCompatActivity {
         homepageViewPager = findViewById(R.id.homepageviewPager);
         HomeViewPagerAdapter pagerAdapter = new HomeViewPagerAdapter(this);
         homepageViewPager.setAdapter(pagerAdapter);
+
         homepageTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

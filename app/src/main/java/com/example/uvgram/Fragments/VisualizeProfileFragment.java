@@ -1,6 +1,9 @@
 package com.example.uvgram.Fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +22,19 @@ public class VisualizeProfileFragment extends Fragment {
     TabLayout tabLayout;
     ViewPager2 viewPager2;
     ViewPagerAdapter viewPagerAdapter;
+    SharedPreferences sharedPreferences;
+    Context context;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        context = getContext();
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String signedInUsername = sharedPreferences.getString("USERNAME", null);
+
+        // TODO: Agregar condición para mostrar botón de Editar Perfil o Seguir/Bloquear
+
         tabLayout = getView().findViewById(R.id.tabLayout);
         viewPager2 = getView().findViewById(R.id.viewPager);
         viewPagerAdapter = new ViewPagerAdapter(getActivity());

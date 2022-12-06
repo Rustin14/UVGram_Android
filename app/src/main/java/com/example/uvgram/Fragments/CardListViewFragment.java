@@ -1,4 +1,4 @@
-package com.example.uvgram;
+package com.example.uvgram.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.uvgram.Adapters.CardListViewAdapter;
+import com.example.uvgram.R;
 
 public class CardListViewFragment extends Fragment {
 
