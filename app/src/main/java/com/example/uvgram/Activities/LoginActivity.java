@@ -12,11 +12,14 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.uvgram.Connection.UVGramAPIAdapter;
 import com.example.uvgram.Models.LoginMessage;
 import com.example.uvgram.Models.LoginResponse;
 import com.example.uvgram.R;
+import com.example.uvgram.ViewModel.LoginViewModel;
+import com.example.uvgram.ViewModel.LoginViewModelFactory;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -41,6 +44,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        LoginViewModel viewModel = new ViewModelProvider(this,
+                new LoginViewModelFactory(getApplication())).get(LoginViewModel.class);
+
         usernameInput = findViewById(R.id.emailInputText);
         passwordView = findViewById(R.id.passwordInputText);
         parentLayout = findViewById(R.id.parentLayout);
@@ -54,7 +61,22 @@ public class LoginActivity extends AppCompatActivity {
 
         loginButton.setOnClickListener(view -> {
             if (checkEmptyTextFields(inputEditTextList)) {
-                signIn(String.valueOf(usernameInput.getText()), String.valueOf(passwordView.getText()));
+                viewModel.login(String.valueOf(usernameInput.getText()), String.valueOf(passwordView.getText()))
+                        .observe(this, loginResponse -> {
+                    if (loginResponse != null) {
+                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("ACCESS_TOKEN", loginResponse.getLoginMessage().getAccessToken());
+                        editor.putString("REFRESH_TOKEN", loginResponse.getLoginMessage().getRefreshToken());
+                        editor.commit();
+
+                        Snackbar.make(parentLayout, R.string.successfulLogin, Snackbar.LENGTH_LONG).show();
+
+                        //Intent myIntent = new Intent(getBaseContext(), HomepageActivity.class);
+                        //startActivity(myIntent);
+                    }
+                });
+
             } else {
                 Snackbar.make(parentLayout, R.string.emptyInputs, Snackbar.LENGTH_SHORT);
             }
@@ -65,33 +87,5 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void signIn(String username, String password) {
-        Call<LoginResponse> call = UVGramAPIAdapter
-                .getApiService()
-                .postLogin(username, password);
-
-        call.enqueue(new Callback<LoginResponse>() {
-            @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                if (response.isSuccessful()) {
-                    LoginMessage loginMessage = response.body().getLoginMessage();
-                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString("ACCESS_TOKEN", loginMessage.getAccessToken());
-                    editor.putString("REFRESH_TOKEN", loginMessage.getRefreshToken());
-                    editor.commit();
-
-                    Intent myIntent = new Intent(getBaseContext(), HomepageActivity.class);
-                    myIntent.putExtra("USERNAME", String.valueOf(usernameInput.getText()));
-                    startActivity(myIntent);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Log.w("MyTag", "requestFailed", t);
-            }
-        });
-    }
 
 }
