@@ -68,4 +68,7 @@ public interface IAuthenticationService {
             @Path("username") String username
     );
 
+    /*@POST("post/like")
+    Call<>*/
+
 }

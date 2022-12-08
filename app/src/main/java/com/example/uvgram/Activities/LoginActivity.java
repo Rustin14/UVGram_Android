@@ -7,15 +7,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.uvgram.Connection.UVGramAPIAdapter;
-import com.example.uvgram.Models.LoginMessage;
 import com.example.uvgram.Models.LoginResponse;
 import com.example.uvgram.R;
 import com.example.uvgram.ViewModel.LoginViewModel;
@@ -25,10 +22,6 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -72,8 +65,8 @@ public class LoginActivity extends AppCompatActivity {
 
                         Snackbar.make(parentLayout, R.string.successfulLogin, Snackbar.LENGTH_LONG).show();
 
-                        //Intent myIntent = new Intent(getBaseContext(), HomepageActivity.class);
-                        //startActivity(myIntent);
+                        Intent myIntent = new Intent(getBaseContext(), HomepageActivity.class);
+                        startActivity(myIntent);
                     }
                 });
 

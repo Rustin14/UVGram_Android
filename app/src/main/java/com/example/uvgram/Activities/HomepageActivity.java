@@ -22,6 +22,7 @@ public class HomepageActivity extends AppCompatActivity {
 
         homepageTabLayout = findViewById(R.id.homepageTabLayout);
         homepageViewPager = findViewById(R.id.homepageviewPager);
+
         HomeViewPagerAdapter pagerAdapter = new HomeViewPagerAdapter(this);
         homepageViewPager.setAdapter(pagerAdapter);
 
