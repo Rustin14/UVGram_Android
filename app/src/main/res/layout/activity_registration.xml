@@ -108,6 +108,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:hint="@string/passwordHint"
+                app:passwordToggleEnabled="true"
                 app:hintEnabled="true"
                 app:hintAnimationEnabled="true"
                 app:boxStrokeColor="@color/uvGreen"
@@ -119,6 +120,7 @@
                     android:layout_height="wrap_content"
                     android:minHeight="35dp"
                     android:textSize="12sp"
+                    android:inputType="textPassword"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -132,6 +134,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:hint="@string/confirmedPasswordLabel"
+                app:passwordToggleEnabled="true"
                 app:hintEnabled="true"
                 app:hintAnimationEnabled="true"
                 app:boxStrokeColor="@color/uvGreen"
@@ -143,6 +146,7 @@
                     android:layout_height="wrap_content"
                     android:minHeight="35dp"
                     android:textSize="12sp"
+                    android:inputType="textPassword"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>

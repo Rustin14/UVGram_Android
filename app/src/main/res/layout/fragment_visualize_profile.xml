@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
-                android:layout_marginTop="35dp">
+                android:layout_marginRight="25dp">
 
                 <TextView
                     android:id="@+id/userFullNameText"
@@ -58,16 +58,18 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:visibility="invisible"
+                android:visibility="visible"
                 android:text="@string/editProfile"/>
 
             <LinearLayout
+                android:id="@+id/buttonsLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
+                android:visibility="invisible"
                 android:layout_below="@+id/profileLayout">
 
                 <Button
@@ -78,40 +80,23 @@
                     android:visibility="visible"
                     android:text="@string/followText"
                     android:layout_weight="1"/>
+
                 <Button
-                    style="?attr/materialIconButtonFilledTonalStyle"
-                    app:icon="@drawable/ic_baseline_block_24"
                     android:id="@+id/blockButton"
+                    style="?attr/materialIconButtonFilledTonalStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="visible"/>
+                    android:visibility="visible"
+                    app:icon="@drawable/ic_baseline_block_24"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
             </LinearLayout>
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/editProfileButton"
-                android:layout_marginTop="10dp">
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:icon="@drawable/ic_baseline_photo_library_24"/>
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:icon="@drawable/ic_baseline_tag_24"
-                    />
-            </com.google.android.material.tabs.TabLayout>
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/tabLayout"/>
+                android:layout_below="@+id/buttonsLayout"/>
 
         </RelativeLayout>
 

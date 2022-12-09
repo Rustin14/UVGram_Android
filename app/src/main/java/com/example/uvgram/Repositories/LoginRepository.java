@@ -1,20 +1,13 @@
 package com.example.uvgram.Repositories;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.uvgram.Activities.HomepageActivity;
 import com.example.uvgram.Connection.UVGramAPIAdapter;
 import com.example.uvgram.Connection.UVGramDatabase;
-import com.example.uvgram.Models.LoginMessage;
 import com.example.uvgram.Models.LoginResponse;
-import com.example.uvgram.Models.User;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,11 +34,6 @@ public class LoginRepository {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.isSuccessful()) {
                     loginResponse.setValue(response.body());
-                    /*SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString("ACCESS_TOKEN", loginMessage.getAccessToken());
-                    editor.putString("REFRESH_TOKEN", loginMessage.getRefreshToken());
-                    editor.commit();*/
                 }
             }
 

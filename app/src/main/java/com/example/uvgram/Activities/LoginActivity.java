@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.uvgram.Models.LoginResponse;
 import com.example.uvgram.R;
 import com.example.uvgram.ViewModel.LoginViewModel;
 import com.example.uvgram.ViewModel.LoginViewModelFactory;
@@ -27,7 +26,6 @@ public class LoginActivity extends AppCompatActivity {
 
     TextInputEditText usernameInput;
     TextInputEditText passwordView;
-    LoginResponse tokens;
     Button loginButton;
     ConstraintLayout parentLayout;
     Context context;
@@ -61,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putString("ACCESS_TOKEN", loginResponse.getLoginMessage().getAccessToken());
                         editor.putString("REFRESH_TOKEN", loginResponse.getLoginMessage().getRefreshToken());
+                        editor.putString("USERNAME", String.valueOf(usernameInput.getText()));
                         editor.commit();
 
                         Snackbar.make(parentLayout, R.string.successfulLogin, Snackbar.LENGTH_LONG).show();

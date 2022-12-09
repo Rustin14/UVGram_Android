@@ -1,72 +1,75 @@
 package com.example.uvgram.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.uvgram.Activities.EditProfileActivity;
 import com.example.uvgram.Adapters.ViewPagerAdapter;
+import com.example.uvgram.Models.GetUserResponse;
 import com.example.uvgram.R;
-import com.google.android.material.tabs.TabLayout;
+import com.example.uvgram.ViewModel.HomepageViewModel;
+import com.example.uvgram.ViewModel.HomepageViewModelFactory;
 
 public class VisualizeProfileFragment extends Fragment {
 
-    TabLayout tabLayout;
     ViewPager2 viewPager2;
+    String username;
     ViewPagerAdapter viewPagerAdapter;
     SharedPreferences sharedPreferences;
+    TextView userFullNameText;
+    TextView usernameText;
+    TextView presentationText;
+    Button editProfileButton;
     Context context;
+    private MutableLiveData<GetUserResponse> userResponse = new MutableLiveData<>();
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         context = getContext();
-
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String signedInUsername = sharedPreferences.getString("USERNAME", null);
+        username = sharedPreferences.getString("USERNAME", null);
 
-        // TODO: Agregar condición para mostrar botón de Editar Perfil o Seguir/Bloquear
+        userFullNameText = getView().findViewById(R.id.userFullNameText);
+        usernameText = getView().findViewById(R.id.usernameText);
+        presentationText = getView().findViewById(R.id.presentationText);
+        editProfileButton = getView().findViewById(R.id.editProfileButton);
 
-        tabLayout = getView().findViewById(R.id.tabLayout);
+        editProfileButton.setOnClickListener(view1 -> {
+            Intent myIntent = new Intent(getContext(), EditProfileActivity.class);
+            startActivity(myIntent);
+        });
+
+        HomepageViewModel homepageViewModel = new ViewModelProvider(this,
+                new HomepageViewModelFactory(getActivity().getApplication()))
+                .get(HomepageViewModel.class);
+
+        userResponse = homepageViewModel.getSignedInUser(username);
+
+        userResponse.observe(getViewLifecycleOwner(), response -> {
+            userFullNameText.setText(response.getMessage().getName());
+            usernameText.setText(response.getMessage().getUsername());
+            presentationText.setText(response.getMessage().getPresentation());
+        });
+
         viewPager2 = getView().findViewById(R.id.viewPager);
         viewPagerAdapter = new ViewPagerAdapter(getActivity());
         viewPager2.setAdapter(viewPagerAdapter);
-
-
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager2.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                tabLayout.getTabAt(position).select();
-            }
-        });
-
     }
 
     @Override

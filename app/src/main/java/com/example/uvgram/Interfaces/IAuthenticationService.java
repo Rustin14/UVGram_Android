@@ -1,8 +1,16 @@
 package com.example.uvgram.Interfaces;
 
+import com.example.uvgram.Models.AccountResponse;
+import com.example.uvgram.Models.BlockResponses.BlockResponse;
+import com.example.uvgram.Models.BlockResponses.UnblockResponse;
+import com.example.uvgram.Models.LikeResponses.DislikeResponse;
+import com.example.uvgram.Models.FollowResponses.FollowResponse;
+import com.example.uvgram.Models.FollowResponses.UnfollowResponse;
 import com.example.uvgram.Models.FollowingResponse;
 import com.example.uvgram.Models.GetPostsMessage;
 import com.example.uvgram.Models.GetUserResponse;
+import com.example.uvgram.Models.LikeResponses.LikeResponse;
+import com.example.uvgram.Models.LikeResponses.PostLikesResponse;
 import com.example.uvgram.Models.LoginResponse;
 import com.example.uvgram.Models.RegisterResponse;
 import com.example.uvgram.Models.RegisterVerificationResponse;
@@ -56,10 +64,9 @@ public interface IAuthenticationService {
             @Path("username") String username
     );
 
-
-    @GET ("/{username}")
+    @GET("/{username}")
     Call<GetUserResponse> getUser(
-        @Path("username") String username
+            @Path("username") String username
     );
 
     @GET("post/user/{username}")
@@ -68,7 +75,75 @@ public interface IAuthenticationService {
             @Path("username") String username
     );
 
-    /*@POST("post/like")
-    Call<>*/
+    @FormUrlEncoded
+    @POST("post/like")
+    Call<LikeResponse> likePost(
+            @Header("Authorization") String token,
+            @Field("uuid") String uuid
+    );
 
+    @FormUrlEncoded
+    @POST("post/dislike")
+    Call<DislikeResponse> dislikePost(
+            @Header("Authorization") String token,
+            @Field("uuid") String uuid
+    );
+
+    @FormUrlEncoded
+    @POST("post/comment/like")
+    Call<LikeResponse> likeComment(
+            @Header("Authorization") String token,
+            @Field("uuid") String uuid
+    );
+
+    @FormUrlEncoded
+    @POST("post/comment/dislike")
+    Call<DislikeResponse> dislikeComment(
+            @Header("Authorization") String token,
+            @Field("uuid") String uuid
+    );
+
+    @FormUrlEncoded
+    @POST("user/follow")
+    Call<FollowResponse> followUser(
+            @Header("Authorization") String token,
+            @Field("username") String username
+    );
+
+    @FormUrlEncoded
+    @POST("user/unfollow")
+    Call<UnfollowResponse> unfollowUser(
+            @Header("Authorization") String token,
+            @Field("username") String username
+    );
+
+
+    @FormUrlEncoded
+    @POST("user/block")
+    Call<BlockResponse> blockUser(
+            @Header("Authorization") String token,
+            @Field("username") String username
+    );
+
+    @FormUrlEncoded
+    @POST("user/unblock")
+    Call<UnblockResponse> unblockUser(
+            @Header("Authorization") String token,
+            @Field("username") String username
+    );
+
+    @GET("post/details/likes/{uuid}")
+    Call<PostLikesResponse> getPostLikesDetails(
+            @Header("Authorization") String token,
+            @Path("uuid") String uuid
+    );
+
+    @GET("accounts/data")
+    Call<AccountResponse> getAccount(
+            @Header("Authorization") String token
+    );
+
+    /*@FormUrlEncoded
+    @POST("accounts/edit/personal")
+    Call*/
 }

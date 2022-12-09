@@ -4,15 +4,20 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.uvgram.Models.LikeResponses.PostLikesResponse;
 import com.example.uvgram.Models.Post;
 import com.example.uvgram.R;
+import com.example.uvgram.ViewModel.LikesViewModel;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +25,14 @@ import java.util.List;
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
     private List<Post> postList = new ArrayList<>();
     Context context;
-
     private OnItemClickListener onItemClickListener;
+    private OnItemClickListener commentOnItemClickListener;
+    private LikesViewModel likesViewModel;
+    boolean isPostLiked;
+
+    public void setLikesViewModel(LikesViewModel likesViewModel) {
+        this.likesViewModel = likesViewModel;
+    }
 
     public interface OnItemClickListener {
         void onItemClick(Post post);
@@ -30,6 +41,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
+    public void setCommentOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.commentOnItemClickListener = onItemClickListener;
+    }
+
 
     @NonNull
     @Override
@@ -56,12 +71,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
         notifyDataSetChanged();
     }
 
+    public void setIsPostLiked(boolean isPostLiked) {
+        this.isPostLiked = isPostLiked;
+    }
+
     class PostHolder extends RecyclerView.ViewHolder {
 
         View postCardView;
         private ImageView postImage;
         private TextView usernameText;
         private TextView descriptionText;
+        private CheckBox likeButton;
+        private MaterialButton commentButton;
+        MutableLiveData<PostLikesResponse> postLikesDetails;
 
         public PostHolder(View postCardView) {
             super(postCardView);
@@ -69,13 +91,30 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
             postImage = postCardView.findViewById(R.id.postCardImage);
             usernameText = postCardView.findViewById(R.id.usernameText);
             descriptionText = postCardView.findViewById(R.id.descriptionText);
+            commentButton = postCardView.findViewById(R.id.commentButton);
+            likeButton = postCardView.findViewById(R.id.likeIcon);
         }
 
         public void bind(final Post post, final OnItemClickListener listener) {
-            String resourceUrl =  post.getFiles().get(0).getUrl();
+            String resourceUrl = post.getFiles().get(0).getUrl();
             Glide.with(context).load(resourceUrl).centerCrop().into(postImage);
             usernameText.setText(post.getUsername());
             descriptionText.setText(post.getDescription());
+            likesViewModel.getPostLikesDetails(post.getUuid());
+            likeButton.setChecked(isPostLiked);
+
+            commentButton.setOnClickListener(view -> {
+                listener.onItemClick(post);
+            });
+
+            likeButton.setOnCheckedChangeListener((button, isChecked) -> {
+                if (isChecked) {
+                    likesViewModel.likePost(post.getUuid());
+                } else {
+                    likesViewModel.dislikePost(post.getUuid());
+                }
+            });
+
             postCardView.setOnClickListener(v -> {
                 listener.onItemClick(post);
             });

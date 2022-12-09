@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.uvgram.Fragments.PublicationsFragment;
-import com.example.uvgram.Fragments.TagsFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
 
@@ -20,8 +19,6 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
         switch (position) {
             case 0:
                 return new PublicationsFragment();
-            case 1:
-                return new TagsFragment();
             default:
                 return null;
         }
@@ -29,6 +26,6 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 2;
+        return 1;
     }
 }

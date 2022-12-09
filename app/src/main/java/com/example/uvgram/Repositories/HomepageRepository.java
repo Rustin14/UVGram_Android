@@ -27,12 +27,12 @@ public class HomepageRepository implements OnDataLoaded {
 
     Context context;
     SharedPreferences sharedPreferences;
-    String username;
-    ArrayList<Message> followedUserList = new ArrayList<>();
     ArrayList<Post> postsArrayList = new ArrayList<>();
-    private Message signedInUser;
     private final UVGramDatabase database;
-    private final MutableLiveData<List<Post>> postList = new MutableLiveData<>(new ArrayList<>());
+    private final MutableLiveData<List<Post>> postList = new MutableLiveData<>();
+    private final MutableLiveData<GetUserResponse> userResponse = new MutableLiveData<>();
+
+
 
     public HomepageRepository (UVGramDatabase database, Context context) {
         this.database = database;
@@ -61,7 +61,7 @@ public class HomepageRepository implements OnDataLoaded {
     }
 
 
-    // Obtener usuario que ha iniciado sesión
+    // TODO: Agregar parámetro String username
     public MutableLiveData<List<Post>> getUser() {
         Call<GetUserResponse> userCall = UVGramAPIAdapter
                 .getApiService()
@@ -102,6 +102,26 @@ public class HomepageRepository implements OnDataLoaded {
                 }
             });
         }
+    }
+
+    public MutableLiveData<GetUserResponse> getSignedInUser(String username) {
+        Call<GetUserResponse> userCall = UVGramAPIAdapter
+                .getApiService()
+                .getUser(username);
+
+        userCall.enqueue(new Callback<GetUserResponse>() {
+            @Override
+            public void onResponse(Call<GetUserResponse> call, Response<GetUserResponse> response) {
+                if (response.isSuccessful()) {
+                    userResponse.setValue(response.body());
+                }
+            }
+            @Override
+            public void onFailure(Call<GetUserResponse> call, Throwable t) {
+                Log.w("MyTag", "requestFailed", t);
+            }
+        });
+        return userResponse;
     }
 
     @Override

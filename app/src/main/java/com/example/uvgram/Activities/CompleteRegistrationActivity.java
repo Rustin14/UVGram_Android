@@ -3,16 +3,21 @@ package com.example.uvgram.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.example.uvgram.Connection.UVGramAPIAdapter;
 import com.example.uvgram.Models.RegisterVerificationResponse;
 import com.example.uvgram.Models.User;
 import com.example.uvgram.R;
+import com.example.uvgram.ViewModel.RegistrationViewModel;
+import com.example.uvgram.ViewModel.RegistrationViewModelFactory;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointBackward;
 import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -20,11 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class CompleteRegistrationActivity extends AppCompatActivity implements Callback<RegisterVerificationResponse> {
+public class CompleteRegistrationActivity extends AppCompatActivity {
 
     TextInputLayout dateTextField;
     TextInputEditText dateInput;
@@ -32,6 +33,8 @@ public class CompleteRegistrationActivity extends AppCompatActivity implements C
     User partialUser;
     Button saveButton;
     Button cancelButton;
+    RegistrationViewModel viewModel;
+    private MutableLiveData<RegisterVerificationResponse> verificationResponse = new MutableLiveData<>();
 
     TextInputEditText nameInput;
     TextInputEditText usernameInput;
@@ -39,6 +42,7 @@ public class CompleteRegistrationActivity extends AppCompatActivity implements C
     TextInputEditText phoneInput;
     TextInputEditText presentationInput;
     TextInputEditText passwordInput;
+    RelativeLayout parentLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +60,12 @@ public class CompleteRegistrationActivity extends AppCompatActivity implements C
         passwordInput = findViewById(R.id.passwordInputText);
         saveButton = findViewById(R.id.saveButton);
         cancelButton = findViewById(R.id.cancelButton);
+        parentLayout = findViewById(R.id.parentLayout);
+
+        viewModel = new ViewModelProvider(this,
+                new RegistrationViewModelFactory(getApplication())).get(RegistrationViewModel.class);
 
         setUserInformation();
-
-        saveButton.setOnClickListener(v -> signUpVerification());
-
-        cancelButton.setOnClickListener(v -> {
-            Intent myIntent = new Intent(this, StartActivity.class);
-            startActivity(myIntent);
-        });
 
         CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder()
                 .setValidator(DateValidatorPointBackward.now());
@@ -74,6 +75,25 @@ public class CompleteRegistrationActivity extends AppCompatActivity implements C
                         .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                         .build();
         setDateTextFieldListener();
+
+        saveButton.setOnClickListener(v ->
+                viewModel.signUpVerification(String.valueOf(usernameInput.getText()),
+                        String.valueOf(emailInput.getText())).observe(this, registerVerificationResponse -> {
+                    if (registerVerificationResponse.getMessage()) {
+                        completeUserInformation();
+                        Intent myIntent = new Intent(this, RegisterVerificationActivity.class);
+                        myIntent.putExtra("USER", partialUser);
+                        startActivity(myIntent);
+                    } else {
+                        Snackbar.make(parentLayout, "No fue posible completar la operación, intente de nuevo.", Snackbar.LENGTH_LONG).show();
+                    }
+                })
+        );
+
+        cancelButton.setOnClickListener(v -> {
+            Intent myIntent = new Intent(this, StartActivity.class);
+            startActivity(myIntent);
+        });
     }
 
     public void setDateTextFieldListener() {
@@ -99,16 +119,6 @@ public class CompleteRegistrationActivity extends AppCompatActivity implements C
         passwordInput.setKeyListener(null);
     }
 
-    public void signUpVerification() {
-        String email = String.valueOf(emailInput.getText());
-        String username = String.valueOf(usernameInput.getText());
-
-        Call<RegisterVerificationResponse> call = UVGramAPIAdapter
-                .getApiService()
-                .postRegisterVerification(username, email);
-        call.enqueue(this);
-    }
-
     public void completeUserInformation() {
         partialUser.setUsername(String.valueOf(usernameInput.getText()));
         partialUser.setBirthday(String.valueOf(dateInput.getText()));
@@ -116,19 +126,4 @@ public class CompleteRegistrationActivity extends AppCompatActivity implements C
         partialUser.setPresentation(String.valueOf(presentationInput.getText()));
     }
 
-    @Override
-    public void onResponse(Call<RegisterVerificationResponse> call, Response<RegisterVerificationResponse> response) {
-        if (response.isSuccessful()) {
-            // Agregar transición a actividad de verificación
-            completeUserInformation();
-            Intent myIntent = new Intent(this, RegisterVerificationActivity.class);
-            myIntent.putExtra("USER", partialUser);
-            startActivity(myIntent);
-        }
-    }
-
-    @Override
-    public void onFailure(Call<RegisterVerificationResponse> call, Throwable t) {
-
-    }
 }

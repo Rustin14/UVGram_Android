@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.EmptyProfileActivity">
+    tools:context=".Activities.EditProfileActivity">
 
     <TextView
         android:id="@+id/topTitle"
@@ -18,7 +18,7 @@
         android:layout_marginTop="20dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/verificationTextField"
+        android:id="@+id/nameTextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/nameLabel"
@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/usernameLabel"
-        android:layout_below="@id/verificationTextField"
+        android:layout_below="@id/nameTextField"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="10dp">
@@ -71,31 +71,13 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/passwordTextField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/passwordHint"
-        android:layout_below="@id/emailTextField"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="10dp"
-        app:passwordToggleEnabled="false">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/passwordInputText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dateTextField"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:hint="@string/birthdateInput"
-        android:layout_below="@id/passwordTextField"
+        android:layout_below="@id/emailTextField"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
@@ -118,7 +100,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/phoneTextField"
         android:hint="@string/phoneLabel"
-        android:layout_below="@id/passwordTextField"
+        android:layout_below="@id/emailTextField"
         android:layout_toRightOf="@+id/dateTextField"
         android:layout_marginRight="15dp"
         android:layout_marginTop="10dp">

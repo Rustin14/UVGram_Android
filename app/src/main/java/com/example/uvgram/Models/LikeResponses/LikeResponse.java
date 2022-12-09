@@ -1,13 +1,13 @@
-package com.example.uvgram.Models;
+package com.example.uvgram.Models.LikeResponses;
 
 import com.google.gson.annotations.SerializedName;
 
-public class RegisterVerificationResponse {
+public class LikeResponse {
 
     @SerializedName("message")
     boolean message;
 
-    public boolean getMessage() {
+    public boolean isMessage() {
         return message;
     }
 
