@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,8 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.uvgram.Activities.PublicationDetailActivity;
 import com.example.uvgram.Adapters.PostAdapter;
 import com.example.uvgram.Models.LikeResponses.LikedBy;
-import com.example.uvgram.Models.LikeResponses.PostLikesResponse;
 import com.example.uvgram.R;
+import com.example.uvgram.ViewModel.CommentsViewModel;
+import com.example.uvgram.ViewModel.CommentsViewModelFactory;
 import com.example.uvgram.ViewModel.HomepageViewModel;
 import com.example.uvgram.ViewModel.HomepageViewModelFactory;
 import com.example.uvgram.ViewModel.LikesViewModel;
@@ -74,17 +74,12 @@ public class CardListViewFragment extends Fragment {
         viewModel = new ViewModelProvider(this,
                 new HomepageViewModelFactory(getActivity().getApplication()))
                 .get(HomepageViewModel.class);
-        viewModel.getPostsList().observe(getViewLifecycleOwner(),
+        viewModel.getPostsList(username).observe(getViewLifecycleOwner(),
                 posts -> {
                     adapter.setPostList(posts);
-                    for (int i = 0; i < posts.size(); i++) {
-                        MutableLiveData<PostLikesResponse> postLikesDetails = likesViewModel
-                                .getPostLikesDetails(posts.get(i).getUuid());
-                        postLikesDetails.observe(getViewLifecycleOwner(), postLikesResponse -> {
-                            boolean isLiked = userLikedPost(postLikesResponse.getMessage(), username);
-                            adapter.setIsPostLiked(isLiked);
-                        });
-                    }
+                    CommentsViewModel commentsViewModel = new ViewModelProvider(this,
+                    new CommentsViewModelFactory(getActivity().getApplication())).get(CommentsViewModel.class);
+
         });
     }
 

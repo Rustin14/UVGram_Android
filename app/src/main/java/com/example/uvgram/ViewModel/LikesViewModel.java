@@ -41,6 +41,16 @@ public class LikesViewModel extends AndroidViewModel {
         return postLikesResponse;
     }
 
+    public MutableLiveData<LikeResponse> likeComment(String uuid) {
+        MutableLiveData<LikeResponse> likeCommentResponse = repository.likeComment(uuid);
+        return likeCommentResponse;
+    }
+
+    public MutableLiveData<DislikeResponse> dislikeComment(String uuid) {
+        MutableLiveData<DislikeResponse> dislikeCommentResponse = repository.dislikeComment(uuid);
+        return dislikeCommentResponse;
+    }
+
 
 
 

@@ -8,9 +8,11 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.uvgram.Connection.UVGramAPIAdapter;
+import com.example.uvgram.Models.Account;
 import com.example.uvgram.Models.AccountResponse;
 import com.example.uvgram.Models.BlockResponses.BlockResponse;
 import com.example.uvgram.Models.BlockResponses.UnblockResponse;
+import com.example.uvgram.Models.EditProfileResponses.EditProfileResponse;
 import com.example.uvgram.Models.FollowResponses.FollowResponse;
 import com.example.uvgram.Models.FollowResponses.UnfollowResponse;
 
@@ -25,6 +27,7 @@ public class ProfileRepository {
     private final MutableLiveData<BlockResponse> blockResponse = new MutableLiveData<>();
     private final MutableLiveData<UnblockResponse> unblockResponse = new MutableLiveData<>();
     private final MutableLiveData<AccountResponse> accountResponse = new MutableLiveData<>();
+    private final MutableLiveData<EditProfileResponse> editProfileResponse = new MutableLiveData<>();
 
 
     SharedPreferences sharedPreferences;
@@ -40,13 +43,14 @@ public class ProfileRepository {
 
         Call<FollowResponse> call = UVGramAPIAdapter
                 .getApiService()
-                .followUser("Header " + accessToken, username);
+                .followUser("Bearer " + accessToken, username);
 
         call.enqueue(new Callback<FollowResponse>() {
             @Override
             public void onResponse(Call<FollowResponse> call, Response<FollowResponse> response) {
                 if (response.isSuccessful()) {
                     followResponse.setValue(response.body());
+                    followResponse.getValue().setHttpCode(response.code());
                 }
             }
             @Override
@@ -62,13 +66,14 @@ public class ProfileRepository {
 
         Call<UnfollowResponse> call = UVGramAPIAdapter
                 .getApiService()
-                .unfollowUser("Header " + accessToken, username);
+                .unfollowUser("Bearer " + accessToken, username);
 
         call.enqueue(new Callback<UnfollowResponse>() {
             @Override
             public void onResponse(Call<UnfollowResponse> call, Response<UnfollowResponse> response) {
                 if (response.isSuccessful()) {
                     unfollowResponse.setValue(response.body());
+                    unfollowResponse.getValue().setHttpCode(response.code());
                 }
             }
             @Override
@@ -84,7 +89,7 @@ public class ProfileRepository {
 
         Call<BlockResponse> call = UVGramAPIAdapter
                 .getApiService()
-                .blockUser("Header " + accessToken, username);
+                .blockUser("Bearer " + accessToken, username);
 
         call.enqueue(new Callback<BlockResponse>() {
             @Override
@@ -93,7 +98,6 @@ public class ProfileRepository {
                     blockResponse.setValue(response.body());
                 }
             }
-
             @Override
             public void onFailure(Call<BlockResponse> call, Throwable t) {
                 Log.w("MyTag", "requestFailed", t);
@@ -107,7 +111,7 @@ public class ProfileRepository {
 
         Call<UnblockResponse> call = UVGramAPIAdapter
                 .getApiService()
-                .unblockUser("Header " + accessToken, username);
+                .unblockUser("Bearer " + accessToken, username);
 
         call.enqueue(new Callback<UnblockResponse>() {
             @Override
@@ -145,6 +149,40 @@ public class ProfileRepository {
             }
         });
         return accountResponse;
+    }
+
+    // TODO: Implementar manejo de errores
+
+    public MutableLiveData<EditProfileResponse> editProfile(Account account) {
+        String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
+
+        Call<EditProfileResponse> call = UVGramAPIAdapter
+                .getApiService().editProfile(
+                        "Bearer " + accessToken,
+                        account.getName(),
+                        account.getPresentation(),
+                        account.getUsername(),
+                        account.getPhoneNumber(),
+                        account.getEmail(),
+                        account.getBirthday(),
+                        "MASCULINO",
+                        1
+                );
+
+        call.enqueue(new Callback<EditProfileResponse>() {
+            @Override
+            public void onResponse(Call<EditProfileResponse> call, Response<EditProfileResponse> response) {
+                if (response.isSuccessful()) {
+                    editProfileResponse.setValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<EditProfileResponse> call, Throwable t) {
+                Log.w("MyTag", "requestFailed", t);
+            }
+        });
+        return editProfileResponse;
     }
 
 }

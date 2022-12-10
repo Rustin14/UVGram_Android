@@ -27,13 +27,18 @@ public class HomepageViewModel extends AndroidViewModel {
         repository = new HomepageRepository(database, application.getApplicationContext());
     }
 
-    public MutableLiveData<List<Post>> getPostsList() {
-        postsList = repository.getUser();
+    public MutableLiveData<List<Post>> getPostsList(String username) {
+        postsList = repository.getFollowedUsersPosts(username);
         return postsList;
     }
 
     public MutableLiveData<GetUserResponse> getSignedInUser(String username) {
         userResponse = repository.getSignedInUser(username);
+        return userResponse;
+    }
+
+    public MutableLiveData<GetUserResponse> getUser(String username) {
+        userResponse = repository.getUser(username);
         return userResponse;
     }
 

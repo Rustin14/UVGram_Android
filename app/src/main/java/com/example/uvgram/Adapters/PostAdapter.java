@@ -9,11 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.uvgram.Models.LikeResponses.PostLikesResponse;
 import com.example.uvgram.Models.Post;
 import com.example.uvgram.R;
 import com.example.uvgram.ViewModel.LikesViewModel;
@@ -71,10 +69,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
         notifyDataSetChanged();
     }
 
-    public void setIsPostLiked(boolean isPostLiked) {
-        this.isPostLiked = isPostLiked;
-    }
-
     class PostHolder extends RecyclerView.ViewHolder {
 
         View postCardView;
@@ -83,7 +77,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
         private TextView descriptionText;
         private CheckBox likeButton;
         private MaterialButton commentButton;
-        MutableLiveData<PostLikesResponse> postLikesDetails;
 
         public PostHolder(View postCardView) {
             super(postCardView);

@@ -1,81 +1,71 @@
 package com.example.uvgram.Fragments;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.example.uvgram.Activities.PublicationDetailActivity;
 import com.example.uvgram.Adapters.GridImagesAdapter;
+import com.example.uvgram.Models.Post;
 import com.example.uvgram.R;
+import com.example.uvgram.ViewModel.HomepageViewModel;
+import com.example.uvgram.ViewModel.HomepageViewModelFactory;
 
 import java.util.ArrayList;
 
-public class PublicationsFragment extends Fragment{
+public class PublicationsFragment extends Fragment {
 
-    Context context;
     GridView gridView;
+    HomepageViewModel homepageViewModel;
+    ArrayList<Post> userPosts = new ArrayList<>();
+    String username;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         gridView = getView().findViewById(R.id.photosGridView);
-        gridView.setAdapter(new GridImagesAdapter(getContext()));
-    }
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-    public ArrayList<Bitmap> createImagesList() {
-        ArrayList<Integer> imageList = new ArrayList<>();
-        ArrayList<Bitmap> bitmapArrayList = new ArrayList<>();
-
-        imageList.add(R.drawable.pxl_20221014_215725107_crop);
-        imageList.add(R.drawable.pxl_20221014_215725107);
-        imageList.add(R.drawable.pxl_20221001_231154257_crop);
-        imageList.add(R.drawable.pxl_20221001_231154257);
-        for (int i = 0; i < imageList.size(); i++) {
-            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
-                    imageList.get(i));
-            bitmap = cropToSquare(bitmap);
-            bitmapArrayList.add(bitmap);
+        // Bloque para decidir si se muestran los Posts del usuario que inició sesión o de otro usuario.
+        String intentUsername = (String) getActivity().getIntent().getSerializableExtra("USERNAME");
+        if (intentUsername == null) {
+            username = preferences.getString("USERNAME", null);
+        } else {
+            username = intentUsername;
         }
-        return bitmapArrayList;
-    }
 
-    public void createImageViews () {
-        ArrayList<Bitmap> imageList = createImagesList();
-        ListAdapter adapter = gridView.getAdapter();
-        for (int i = 0; i < imageList.size(); i++) {
-            ImageView imageView = new ImageView(context);
-            imageView.setImageBitmap(imageList.get(i));
-        }
-    }
+        GridImagesAdapter imagesAdapter = new GridImagesAdapter(getContext());
 
+        imagesAdapter.setOnItemClickListener(post -> {
+            Intent myIntent = new Intent(getContext(), PublicationDetailActivity.class);
+            myIntent.putExtra("POST", post);
+            myIntent.putExtra("USERNAME", username);
+            startActivity(myIntent);
+        });
+
+        homepageViewModel = new ViewModelProvider(this,
+                new HomepageViewModelFactory(getActivity().getApplication()))
+                .get(HomepageViewModel.class);
+
+        homepageViewModel.getUser(username).observe(getViewLifecycleOwner(), userResponse -> {
+            userPosts.addAll(userResponse.getMessage().getPosts());
+            imagesAdapter.setPostList(userPosts);
+            gridView.setAdapter(imagesAdapter);
+        });
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_publications, container, false);
     }
-
-    public static Bitmap cropToSquare(Bitmap bitmap){
-        int width  = bitmap.getWidth();
-        int height = bitmap.getHeight();
-        int newWidth = (height > width) ? width : height;
-        int newHeight = (height > width)? height - ( height - width) : height;
-        int cropW = (width - height) / 2;
-        cropW = (cropW < 0)? 0: cropW;
-        int cropH = (height - width) / 2;
-        cropH = (cropH < 0)? 0: cropH;
-        Bitmap cropImg = Bitmap.createBitmap(bitmap, cropW, cropH, newWidth, newHeight);
-
-        return cropImg;
-    }
-
 
 }

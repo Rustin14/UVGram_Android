@@ -24,6 +24,8 @@ public class LoginRepository {
         this.context = context;
     }
 
+    // TODO: Implementar manejo de errores
+
     public MutableLiveData<LoginResponse> signIn(String username, String password) {
         Call<LoginResponse> call = UVGramAPIAdapter
                 .getApiService()

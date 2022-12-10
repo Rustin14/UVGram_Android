@@ -32,8 +32,6 @@ public class HomepageRepository implements OnDataLoaded {
     private final MutableLiveData<List<Post>> postList = new MutableLiveData<>();
     private final MutableLiveData<GetUserResponse> userResponse = new MutableLiveData<>();
 
-
-
     public HomepageRepository (UVGramDatabase database, Context context) {
         this.database = database;
         this.context = context;
@@ -62,10 +60,10 @@ public class HomepageRepository implements OnDataLoaded {
 
 
     // TODO: Agregar parámetro String username
-    public MutableLiveData<List<Post>> getUser() {
+    public MutableLiveData<List<Post>> getFollowedUsersPosts(String username) {
         Call<GetUserResponse> userCall = UVGramAPIAdapter
                 .getApiService()
-                .getUser("gabofl");
+                .getUser(username);
 
         userCall.enqueue(new Callback<GetUserResponse>() {
             @Override
@@ -83,7 +81,7 @@ public class HomepageRepository implements OnDataLoaded {
     }
 
     // Obtener posts de cada usuario que siga el usuario que inició sesión
-    public void getUsersAndPosts(ArrayList<User> followsList) {
+    public void getUsersPosts(ArrayList<User> followsList) {
         for (int i = 0; i < followsList.size(); i++) {
             int finalI = i;
             Call<GetUserResponse> userCall = UVGramAPIAdapter
@@ -124,6 +122,27 @@ public class HomepageRepository implements OnDataLoaded {
         return userResponse;
     }
 
+    public MutableLiveData<GetUserResponse> getUser(String username) {
+        Call<GetUserResponse> userCall = UVGramAPIAdapter
+                .getApiService()
+                .getUser(username);
+
+        userCall.enqueue(new Callback<GetUserResponse>() {
+            @Override
+            public void onResponse(Call<GetUserResponse> call, Response<GetUserResponse> response) {
+                if (response.isSuccessful()) {
+                    userResponse.setValue(response.body());
+                }
+            }
+            @Override
+            public void onFailure(Call<GetUserResponse> call, Throwable t) {
+                Log.w("MyTag", "requestFailed", t);
+            }
+        });
+        return userResponse;
+    }
+
+
     @Override
     public void onDataLoaded(Message user) {
         for (int i = 0; i < user.getPosts().size(); i++) {
@@ -135,7 +154,7 @@ public class HomepageRepository implements OnDataLoaded {
 
     @Override
     public void onFollowsLoaded(ArrayList<User> follows) {
-        getUsersAndPosts(follows);
+        getUsersPosts(follows);
     }
 
     @Override
