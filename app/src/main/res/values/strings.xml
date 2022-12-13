@@ -39,5 +39,6 @@
     <string name="followText">Seguir</string>
     <string name="writeComment">Escribe un comentario</string>
     <string name="successfulLogin">¡Inicio de sesión exitoso!</string>
+
     <style name="errorText">Ha ocurrido un error. Inténtelo de nuevo.</style>
 </resources>

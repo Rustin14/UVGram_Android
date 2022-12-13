@@ -4,6 +4,7 @@
     package="com.example.uvgram">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -16,6 +17,13 @@
         android:theme="@style/Theme.baseapp"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".CreatePostActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".Activities.VisualizeUserProfileActivity"
             android:exported="false">
@@ -33,7 +41,7 @@
         <activity
             android:name=".Activities.PublicationDetailActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Activities.RegisterVerificationActivity"
             android:exported="false">

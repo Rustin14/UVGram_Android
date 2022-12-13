@@ -50,7 +50,10 @@ public class ProfileRepository {
             public void onResponse(Call<FollowResponse> call, Response<FollowResponse> response) {
                 if (response.isSuccessful()) {
                     followResponse.setValue(response.body());
-                    followResponse.getValue().setHttpCode(response.code());
+                } else {
+                    FollowResponse responseCode = new FollowResponse();
+                    responseCode.setHttpCode(response.code());
+                    followResponse.setValue(responseCode);
                 }
             }
             @Override
@@ -74,6 +77,10 @@ public class ProfileRepository {
                 if (response.isSuccessful()) {
                     unfollowResponse.setValue(response.body());
                     unfollowResponse.getValue().setHttpCode(response.code());
+                } else {
+                    UnfollowResponse responseCode = new UnfollowResponse();
+                    responseCode.setHttpCode(response.code());
+                    unfollowResponse.setValue(responseCode);
                 }
             }
             @Override

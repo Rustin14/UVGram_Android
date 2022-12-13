@@ -22,6 +22,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
@@ -115,7 +116,7 @@ public interface IAuthenticationService {
     );
 
     @FormUrlEncoded
-    @POST("user/unfollow")
+    @HTTP(method = "DELETE", path = "user/unfollow", hasBody = true)
     Call<UnfollowResponse> unfollowUser(
             @Header("Authorization") String token,
             @Field("username") String username
@@ -130,7 +131,7 @@ public interface IAuthenticationService {
     );
 
     @FormUrlEncoded
-    @POST("user/unblock")
+    @HTTP(method = "DELETE", path = "user/unblock", hasBody = true)
     Call<UnblockResponse> unblockUser(
             @Header("Authorization") String token,
             @Field("username") String username

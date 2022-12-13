@@ -56,7 +56,6 @@ public class LikesRepository {
     public MutableLiveData<DislikeResponse> dislikePost(String uuid) {
         String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
 
-
         Call<DislikeResponse> call = UVGramAPIAdapter
                 .getApiService()
                 .dislikePost("Bearer " + accessToken, uuid);

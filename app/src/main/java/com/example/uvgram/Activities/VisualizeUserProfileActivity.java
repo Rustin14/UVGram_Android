@@ -1,9 +1,8 @@
 package com.example.uvgram.Activities;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +30,8 @@ public class VisualizeUserProfileActivity extends AppCompatActivity {
     ProfileViewModel profileViewModel;
     Button followButton;
     Button followedButton;
+    LinearLayout followButtonLayout;
+    LinearLayout followedButtonLayout;
     Button blockButton;
     String username;
     Message profileUser;
@@ -46,8 +47,8 @@ public class VisualizeUserProfileActivity extends AppCompatActivity {
         usernameText = findViewById(R.id.usernameText);
         presentationText = findViewById(R.id.presentationText);
         followButton = findViewById(R.id.followButton);
-        followedButton = findViewById(R.id.followedButton);
-        blockButton = findViewById(R.id.blockButton);
+        //followedButton = findViewById(R.id.followedButton);
+        //blockButton = findViewById(R.id.blockButton);
         viewPager = findViewById(R.id.viewPager);
         parentLayout = findViewById(R.id.parentLayout);
 
@@ -66,7 +67,7 @@ public class VisualizeUserProfileActivity extends AppCompatActivity {
             viewPager.setAdapter(viewPagerAdapter);
         });
 
-        blockButton.setOnClickListener(v -> {
+        /*blockButton.setOnClickListener(v -> {
             profileViewModel.blockUser(username).observe(this, blockResponse -> {
                 if (blockResponse.getMessage().equals("you have blocked to " + username)) {
                     Snackbar.make(parentLayout, "Usuario bloqueado.", Snackbar.LENGTH_LONG).show();
@@ -77,29 +78,33 @@ public class VisualizeUserProfileActivity extends AppCompatActivity {
                     Snackbar.make(parentLayout, "Ha ocurrido un error. Inténtelo de nuevo.", Snackbar.LENGTH_LONG).show();
                 }
             });
-        });
+        });*/
 
         followButton.setOnClickListener(v -> {
-            profileViewModel.followUser(username).observe(this, followResponse -> {
-                if (followResponse.getHttpCode() == 200 || followResponse.getHttpCode() == 403) {
-                    followedButton.setVisibility(View.VISIBLE);
-                    followButton.setVisibility(View.GONE);
-                } else {
-                    Snackbar.make(parentLayout, "Ha ocurrido un error. Inténtelo de nuevo", Snackbar.LENGTH_LONG).show();
-                }
-            });
+            if (followButton.getText().equals("Seguir")) {
+                profileViewModel.followUser(username).observe(this, followResponse -> {
+                    if (followResponse != null) {
+                        followButton.setText("Seguido");
+                        followButton.setBackgroundColor(getResources().getColor(R.color.uvGreen));
+                        followButton.setTextColor(getResources().getColor(R.color.black));
+                    } else {
+                        Snackbar.make(parentLayout, "Ha ocurrido un error. Inténtelo de nuevo", Snackbar.LENGTH_LONG).show();
+                    }
+                });
+            } else {
+                profileViewModel.unfollowUser(username).observe(this, unfollowResponse -> {
+                    if (unfollowResponse != null) {
+                        followButton.setText("Seguir");
+                        followButton.setBackgroundColor(getResources().getColor(R.color.uvBlue));
+                        followButton.setTextColor(getResources().getColor(R.color.white));
+                    } else {
+                        Snackbar.make(parentLayout, "Ha ocurrido un error. Inténtelo de nuevo", Snackbar.LENGTH_LONG).show();
+                    }
+                });
+            }
         });
 
-        followedButton.setOnClickListener(v -> {
-            profileViewModel.unfollowUser(username).observe(this, unfollowResponse -> {
-                if (unfollowResponse.getHttpCode() == 200) {
-                    followButton.setVisibility(View.VISIBLE);
-                    followedButton.setVisibility(View.GONE);
-                } else {
-                    Snackbar.make(parentLayout, "Ha ocurrido un error. Inténtelo de nuevo", Snackbar.LENGTH_LONG).show();
-                }
-            });
-        });
+        validateFollowState();
     }
 
     private void setUserInfo() {
@@ -111,8 +116,9 @@ public class VisualizeUserProfileActivity extends AppCompatActivity {
     private void validateFollowState() {
         profileViewModel.followUser(username).observe(this, followResponse -> {
             if (followResponse.getHttpCode() == 403) {
-                followedButton.setVisibility(View.VISIBLE);
-                followButton.setVisibility(View.GONE);
+                followButton.setText("Seguir");
+                followButton.setBackgroundColor(getResources().getColor(R.color.uvBlue));
+                followButton.setTextColor(getResources().getColor(R.color.white));
             } else {
                 profileViewModel.unfollowUser(username);
             }
