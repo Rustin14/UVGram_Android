@@ -20,6 +20,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
     private List<String> images;
     protected PhotoListener photoListener;
 
+    public GalleryAdapter (Context context, List<String> images, PhotoListener photoListener) {
+        this.context = context;
+        this.images = images;
+        this.photoListener = photoListener;
+    }
+
     @NonNull
     @Override
     public GalleryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
