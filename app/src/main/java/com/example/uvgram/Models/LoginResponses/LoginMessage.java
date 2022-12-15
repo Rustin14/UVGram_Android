@@ -1,4 +1,4 @@
-package com.example.uvgram.Models;
+package com.example.uvgram.Models.LoginResponses;
 
 import com.google.gson.annotations.SerializedName;
 

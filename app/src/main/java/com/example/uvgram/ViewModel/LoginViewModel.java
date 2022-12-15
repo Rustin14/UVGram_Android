@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.uvgram.Connection.UVGramDatabase;
-import com.example.uvgram.Models.LoginResponse;
+import com.example.uvgram.Models.LoginResponses.LoginResponse;
 import com.example.uvgram.Repositories.LoginRepository;
 
 public class LoginViewModel extends AndroidViewModel {

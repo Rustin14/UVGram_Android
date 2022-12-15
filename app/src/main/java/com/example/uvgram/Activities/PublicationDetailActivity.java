@@ -12,16 +12,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.example.uvgram.Adapters.CommentsAdapter;
+import com.example.uvgram.Models.FollowResponses.FollowResponse;
 import com.example.uvgram.Models.Post;
 import com.example.uvgram.R;
 import com.example.uvgram.ViewModel.CommentsViewModel;
 import com.example.uvgram.ViewModel.CommentsViewModelFactory;
 import com.example.uvgram.ViewModel.LikesViewModel;
 import com.example.uvgram.ViewModel.LikesViewModelFactory;
+import com.example.uvgram.ViewModel.ProfileViewModel;
+import com.example.uvgram.ViewModel.ProfileViewModelFactory;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -33,10 +37,11 @@ public class PublicationDetailActivity extends AppCompatActivity {
     TextView descriptionTextView;
     MaterialButton sendButton;
     TextInputEditText commentEditText;
+    ProfileViewModel profileViewModel;
     LikesViewModel likesViewModel;
     CheckBox likeIcon;
     MaterialButton commentButton;
-    String username;
+    String postUsername;
     Post post;
     CommentsViewModel commentsViewModel;
 
@@ -47,7 +52,8 @@ public class PublicationDetailActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         post = (Post) getIntent().getSerializableExtra("POST");
-        username = preferences.getString("USERNAME", null);
+        postUsername = (String) getIntent().getSerializableExtra("USERNAME");
+        post.setUsername(postUsername);
 
         usernameTextView = findViewById(R.id.usernameText);
         descriptionTextView = findViewById(R.id.descriptionText);
@@ -67,6 +73,10 @@ public class PublicationDetailActivity extends AppCompatActivity {
 
         likesViewModel = new ViewModelProvider(this, new LikesViewModelFactory(getApplication()))
                 .get(LikesViewModel.class);
+
+        profileViewModel = new ViewModelProvider(this,
+                new ProfileViewModelFactory(getApplication()))
+                .get(ProfileViewModel.class);
 
         commentsViewModel.getComments(post.getUuid()).observe(this, getCommentsResponse -> {
             commentsListView = findViewById(R.id.commentsListView);
@@ -101,12 +111,13 @@ public class PublicationDetailActivity extends AppCompatActivity {
 
         usernameTextView.setOnClickListener(view -> {
             Intent myIntent = new Intent(this, VisualizeUserProfileActivity.class);
+            myIntent.putExtra("IS_FOLLOWED", validateFollowState());
             myIntent.putExtra("USERNAME", post.getUsername());
             startActivity(myIntent);
         });
 
         if (post == null) {
-            usernameTextView.setText(username);
+            usernameTextView.setText(postUsername);
         } else {
             usernameTextView.setText(post.getUsername());
         }
@@ -120,6 +131,21 @@ public class PublicationDetailActivity extends AppCompatActivity {
         final InputMethodManager inputMethodManager = (InputMethodManager) getApplicationContext()
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.showSoftInput(commentEditText, InputMethodManager.SHOW_IMPLICIT);
+    }
+
+    private boolean validateFollowState() {
+        final boolean[] isFollowed = {false};
+        profileViewModel.followUser(postUsername).observe(this, new Observer<FollowResponse>() {
+            @Override
+            public void onChanged(FollowResponse followResponse) {
+                if (followResponse.getHttpCode() == 403) {
+                    isFollowed[0] = true;
+                } else {
+                    profileViewModel.unfollowUser(postUsername);
+                }
+            }
+        });
+        return isFollowed[0];
     }
 
 

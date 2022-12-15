@@ -1,5 +1,6 @@
 package com.example.uvgram.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,12 +8,15 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.uvgram.Adapters.HomeViewPagerAdapter;
 import com.example.uvgram.R;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.tabs.TabLayout;
 
 public class HomepageActivity extends AppCompatActivity {
 
     ViewPager2 homepageViewPager;
     TabLayout homepageTabLayout;
+    MaterialToolbar toolbar;
+
 
 
     @Override
@@ -22,9 +26,23 @@ public class HomepageActivity extends AppCompatActivity {
 
         homepageTabLayout = findViewById(R.id.homepageTabLayout);
         homepageViewPager = findViewById(R.id.homepageviewPager);
+        toolbar = findViewById(R.id.topAppBar);
 
         HomeViewPagerAdapter pagerAdapter = new HomeViewPagerAdapter(this);
         homepageViewPager.setAdapter(pagerAdapter);
+
+        toolbar.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.followRequestsButton:
+
+                    return true;
+                case R.id.createPostButton:
+                    Intent myIntent = new Intent(this, CreatePostActivity.class);
+                    startActivity(myIntent);
+                    return true;
+            }
+            return false;
+        });
 
         homepageTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

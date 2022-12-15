@@ -39,6 +39,13 @@
     <string name="followText">Seguir</string>
     <string name="writeComment">Escribe un comentario</string>
     <string name="successfulLogin">¡Inicio de sesión exitoso!</string>
-
+    <string name="passwordFormatError">Contraseña inválida. Debe tener al menos 6 carácteres.</string>
+    <string name="incorrectPassword">Contraseña errónea.</string>
+    <string name="userNotFound">Usuario no encontrado.</string>
+    <string name="validCharactersUsername">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789_</string>
+    <string name="validCharactersVerificationCode">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789</string>
+    <string name="validCharactersFullName">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="validCharactersEmail">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789-@.</string>
+    <string name="validCharactersPhone">123456789</string>
     <style name="errorText">Ha ocurrido un error. Inténtelo de nuevo.</style>
 </resources>

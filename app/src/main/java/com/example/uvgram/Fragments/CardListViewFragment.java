@@ -57,14 +57,14 @@ public class CardListViewFragment extends Fragment {
         adapter.setOnItemClickListener(post -> {
             Intent myIntent = new Intent(getContext(), PublicationDetailActivity.class);
             myIntent.putExtra("POST", post);
-            myIntent.putExtra("USERNAME", username);
+            myIntent.putExtra("USERNAME", post.getUsername());
             startActivity(myIntent);
         });
 
         adapter.setCommentOnItemClickListener(post -> {
             Intent myIntent = new Intent(getContext(), PublicationDetailActivity.class);
             myIntent.putExtra("POST", post);
-            myIntent.putExtra("USERNAME", username);
+            myIntent.putExtra("USERNAME", post.getUsername());
             myIntent.putExtra("CONFIG", 1);
             startActivity(myIntent);
         });

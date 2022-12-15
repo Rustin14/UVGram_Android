@@ -1,12 +1,13 @@
 package com.example.uvgram.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -17,6 +18,7 @@ import com.example.uvgram.ViewModel.HomepageViewModel;
 import com.example.uvgram.ViewModel.HomepageViewModelFactory;
 import com.example.uvgram.ViewModel.ProfileViewModel;
 import com.example.uvgram.ViewModel.ProfileViewModelFactory;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 
 public class VisualizeUserProfileActivity extends AppCompatActivity {
@@ -29,9 +31,8 @@ public class VisualizeUserProfileActivity extends AppCompatActivity {
     HomepageViewModel viewModel;
     ProfileViewModel profileViewModel;
     Button followButton;
-    Button followedButton;
-    LinearLayout followButtonLayout;
-    LinearLayout followedButtonLayout;
+    boolean isFollowed = false;
+    MaterialButton unfollowButton;
     Button blockButton;
     String username;
     Message profileUser;
@@ -42,13 +43,14 @@ public class VisualizeUserProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visualize_user_profile);
         username = (String) getIntent().getSerializableExtra("USERNAME");
+        isFollowed = (boolean) getIntent().getSerializableExtra("IS_FOLLOWED");
 
         userFullNameText = findViewById(R.id.userFullNameText);
         usernameText = findViewById(R.id.usernameText);
         presentationText = findViewById(R.id.presentationText);
         followButton = findViewById(R.id.followButton);
-        //followedButton = findViewById(R.id.followedButton);
-        //blockButton = findViewById(R.id.blockButton);
+        unfollowButton = findViewById(R.id.unfollowButton);
+        blockButton = findViewById(R.id.blockButton);
         viewPager = findViewById(R.id.viewPager);
         parentLayout = findViewById(R.id.parentLayout);
 
@@ -67,7 +69,7 @@ public class VisualizeUserProfileActivity extends AppCompatActivity {
             viewPager.setAdapter(viewPagerAdapter);
         });
 
-        /*blockButton.setOnClickListener(v -> {
+        blockButton.setOnClickListener(v -> {
             profileViewModel.blockUser(username).observe(this, blockResponse -> {
                 if (blockResponse.getMessage().equals("you have blocked to " + username)) {
                     Snackbar.make(parentLayout, "Usuario bloqueado.", Snackbar.LENGTH_LONG).show();
@@ -78,32 +80,30 @@ public class VisualizeUserProfileActivity extends AppCompatActivity {
                     Snackbar.make(parentLayout, "Ha ocurrido un error. Inténtelo de nuevo.", Snackbar.LENGTH_LONG).show();
                 }
             });
-        });*/
-
-        followButton.setOnClickListener(v -> {
-            if (followButton.getText().equals("Seguir")) {
-                profileViewModel.followUser(username).observe(this, followResponse -> {
-                    if (followResponse != null) {
-                        followButton.setText("Seguido");
-                        followButton.setBackgroundColor(getResources().getColor(R.color.uvGreen));
-                        followButton.setTextColor(getResources().getColor(R.color.black));
-                    } else {
-                        Snackbar.make(parentLayout, "Ha ocurrido un error. Inténtelo de nuevo", Snackbar.LENGTH_LONG).show();
-                    }
-                });
-            } else {
-                profileViewModel.unfollowUser(username).observe(this, unfollowResponse -> {
-                    if (unfollowResponse != null) {
-                        followButton.setText("Seguir");
-                        followButton.setBackgroundColor(getResources().getColor(R.color.uvBlue));
-                        followButton.setTextColor(getResources().getColor(R.color.white));
-                    } else {
-                        Snackbar.make(parentLayout, "Ha ocurrido un error. Inténtelo de nuevo", Snackbar.LENGTH_LONG).show();
-                    }
-                });
-            }
         });
 
+        followButton.setOnClickListener(v -> {
+            profileViewModel.followUser(username).observe(this, followResponse -> {
+                followButton.setText("Seguido");
+                followButton.setBackgroundColor(getResources().getColor(R.color.uvGreen));
+                followButton.setTextColor(getResources().getColor(R.color.black));
+                followButton.setEnabled(false);
+                unfollowButton.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_baseline_follow_account_24));
+                unfollowButton.setEnabled(true);
+            });
+        });
+
+        unfollowButton.setOnClickListener(view -> {
+            profileViewModel.unfollowUser(username).observe(this, unfollowResponse -> {
+                if (unfollowResponse != null) {
+                    followButton.setText("Seguir");
+                    followButton.setBackgroundColor(getResources().getColor(R.color.uvBlue));
+                    followButton.setTextColor(getResources().getColor(R.color.white));
+                    followButton.setEnabled(true);
+                    unfollowButton.setEnabled(false);
+                }
+            });
+        });
         validateFollowState();
     }
 
@@ -114,15 +114,14 @@ public class VisualizeUserProfileActivity extends AppCompatActivity {
     }
 
     private void validateFollowState() {
-        profileViewModel.followUser(username).observe(this, followResponse -> {
-            if (followResponse.getHttpCode() == 403) {
-                followButton.setText("Seguir");
-                followButton.setBackgroundColor(getResources().getColor(R.color.uvBlue));
-                followButton.setTextColor(getResources().getColor(R.color.white));
-            } else {
-                profileViewModel.unfollowUser(username);
-            }
-        });
+        if (isFollowed) {
+            followButton.setText("Seguido");
+            followButton.setBackgroundColor(getResources().getColor(R.color.uvBlue));
+            followButton.setTextColor(getResources().getColor(R.color.black));
+            followButton.setEnabled(false);
+            unfollowButton.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_baseline_follow_account_24));
+            unfollowButton.setEnabled(true);
+        }
     }
 
 }

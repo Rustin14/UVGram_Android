@@ -20,6 +20,9 @@ public class ProfileViewModel extends AndroidViewModel {
     private final ProfileRepository repository;
     private MutableLiveData<AccountResponse> accountResponse = new MutableLiveData<>();
     private MutableLiveData<EditProfileResponse> editProfileResponse = new MutableLiveData<>();
+    private MutableLiveData<FollowResponse> followResponse = new MutableLiveData<>();
+    private MutableLiveData<UnfollowResponse> unfollowResponse = new MutableLiveData<>();
+    private MutableLiveData<UnblockResponse> unblockResponse = new MutableLiveData<>();
 
 
     public ProfileViewModel(@NonNull Application application) {
@@ -38,13 +41,13 @@ public class ProfileViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<FollowResponse> followUser(String username) {
-        MutableLiveData<FollowResponse> followResponse = repository.followUser(username);
+        followResponse = repository.followUser(username);
         return followResponse;
     }
 
     public MutableLiveData<UnfollowResponse> unfollowUser(String username) {
-        MutableLiveData<UnfollowResponse> followResponse = repository.unfollowUser(username);
-        return followResponse;
+        unfollowResponse = repository.unfollowUser(username);
+        return unfollowResponse;
     }
 
     public MutableLiveData<BlockResponse> blockUser(String username) {
@@ -53,7 +56,7 @@ public class ProfileViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<UnblockResponse> unblockUser(String username) {
-        MutableLiveData<UnblockResponse> unblockResponse = repository.unblockUser(username);
+        unblockResponse = repository.unblockUser(username);
         return unblockResponse;
     }
 

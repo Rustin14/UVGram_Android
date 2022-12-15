@@ -4,6 +4,7 @@ import com.example.uvgram.Models.AccountResponse;
 import com.example.uvgram.Models.BlockResponses.BlockResponse;
 import com.example.uvgram.Models.BlockResponses.UnblockResponse;
 import com.example.uvgram.Models.CommentPostResponses.CommentPostResponse;
+import com.example.uvgram.Models.CreatePostResponse.CreatePostResponse;
 import com.example.uvgram.Models.EditProfileResponses.EditProfileResponse;
 import com.example.uvgram.Models.FollowResponses.FollowResponse;
 import com.example.uvgram.Models.FollowResponses.UnfollowResponse;
@@ -14,18 +15,22 @@ import com.example.uvgram.Models.GetUserResponse;
 import com.example.uvgram.Models.LikeResponses.DislikeResponse;
 import com.example.uvgram.Models.LikeResponses.LikeResponse;
 import com.example.uvgram.Models.LikeResponses.PostLikesResponse;
-import com.example.uvgram.Models.LoginResponse;
+import com.example.uvgram.Models.LoginResponses.LoginResponse;
 import com.example.uvgram.Models.RegisterResponse;
 import com.example.uvgram.Models.RegisterVerificationResponse;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface IAuthenticationService {
@@ -175,5 +180,16 @@ public interface IAuthenticationService {
             @Field("comment") String comment,
             @Field("uuid") String uuid
     );
+
+    @Multipart
+    @POST("post/create/")
+    Call<CreatePostResponse> createPost(
+            @Header("Authorization") String token,
+            @Part MultipartBody.Part[] file,
+            @Part("description") RequestBody description,
+            @Part("commentsAllowed") boolean commentsAllowed,
+            @Part("likesAllowed") boolean likesAllowed
+    );
+
 
 }

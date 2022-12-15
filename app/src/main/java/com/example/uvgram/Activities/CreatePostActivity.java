@@ -24,10 +24,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.snackbar.Snackbar;
 import com.yalantis.ucrop.UCrop;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 public class CreatePostActivity extends AppCompatActivity {
 
@@ -55,16 +52,14 @@ public class CreatePostActivity extends AppCompatActivity {
         toolbar.setOnMenuItemClickListener(item -> {
            switch (item.getItemId()) {
                case R.id.nextActivity:
-                   Uri sourceUri = Uri.fromFile(new File(selectedImagePath));
-                   String destinationUri = new StringBuilder(UUID.randomUUID().toString()).append(".jpg").toString();
-                   File outputFile = null;
-                   try {
-                       outputFile = File.createTempFile("tempImage", ".jpeg", getCacheDir());
-                   } catch (IOException e) {
-                       Snackbar.make(viewGroup, "Sucedió un error, vuelva a intentarlo.", Snackbar.LENGTH_LONG).show();
-                   }
-                   UCrop.of(sourceUri, Uri.fromFile(new File(getCacheDir(), destinationUri)))
-                           .start(this);
+                   /*Uri sourceUri = Uri.fromFile(new File(selectedImagePath));
+                   String destinationFileName = "CROPPED_IMG_NAME_" + UUID.randomUUID();
+                   destinationFileName += ".jpg";
+                   UCrop.of(sourceUri, Uri.fromFile(new File(getCacheDir(), destinationFileName)))
+                           .start(this);*/
+                   Intent myIntent = new Intent(this, FinishCreatePostActivity.class);
+                   myIntent.putExtra("DESTINATION_URI", selectedImagePath);
+                   startActivity(myIntent);
                    return true;
            }
            return false;

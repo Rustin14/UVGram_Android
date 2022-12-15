@@ -1,7 +1,9 @@
 package com.example.uvgram.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 
@@ -30,6 +32,7 @@ public class RegisterVerificationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         setContentView(R.layout.activity_register_verification);
         userToRegister = (User) getIntent().getSerializableExtra("USER");
         contextView = findViewById(R.id.parentLayout);
@@ -45,8 +48,9 @@ public class RegisterVerificationActivity extends AppCompatActivity {
                 String.valueOf(verificationInput.getText())).observe(this, registerResponse -> {
                     String message = registerResponse.getMessage();
                     if (message.equals("New entity was added")) {
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("USERNAME", userToRegister.getUsername());
                         Intent myIntent = new Intent(getBaseContext(), HomepageActivity.class);
-                        myIntent.putExtra("USER", userToRegister);
                         startActivity(myIntent);
                     } else {
                         Snackbar.make(contextView, message, Snackbar.LENGTH_LONG).show();

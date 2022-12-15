@@ -2,15 +2,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/edit"
+        android:id="@+id/followRequestsButton"
         android:icon="@drawable/ic_baseline_view_list_24"
-        android:title="@string/loginText"
+        android:title="@string/followRequests"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/favorite"
+        android:id="@+id/createPostButton"
         android:icon="@drawable/ic_baseline_post_add_24"
         app:showAsAction="ifRoom"
-        android:title="@string/followRequests" />
+        android:title="Crear publicación" />
 
 </menu>

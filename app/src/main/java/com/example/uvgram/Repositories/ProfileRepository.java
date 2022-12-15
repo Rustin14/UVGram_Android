@@ -50,6 +50,7 @@ public class ProfileRepository {
             public void onResponse(Call<FollowResponse> call, Response<FollowResponse> response) {
                 if (response.isSuccessful()) {
                     followResponse.setValue(response.body());
+                    followResponse.getValue().setHttpCode(response.code());
                 } else {
                     FollowResponse responseCode = new FollowResponse();
                     responseCode.setHttpCode(response.code());

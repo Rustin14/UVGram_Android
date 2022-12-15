@@ -50,7 +50,7 @@
 
             </RelativeLayout>
 
-            <RelativeLayout
+            <LinearLayout
             android:id="@+id/buttonsLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,18 +58,60 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
             android:visibility="visible"
-            android:layout_below="@+id/profileLayout">
+            android:layout_below="@+id/profileLayout"
+            android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
 
                 <Button
-                    style="@style/Widget.Material3.Button.TonalButton"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
                     android:id="@+id/followButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/uvBlue"
                     android:textColor="@color/white"
+                    android:layout_weight="1"
                     android:text="@string/followText"/>
 
-            </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/unfollowButton"
+                        style="?attr/materialIconButtonFilledStyle"
+                        app:backgroundTint="@color/white"
+                        app:icon="@drawable/ic_baseline_person_remove_24"
+                        app:iconTint="@color/black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:ignore="TouchTargetSizeCheck,
+                        SpeakableTextPresentCheck" />
+
+                </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/blockButton"
+                    style="?attr/materialIconButtonStyle"
+                    app:icon="@drawable/ic_baseline_block_24"
+                    app:iconTint="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:ignore="TouchTargetSizeCheck,
+                    SpeakableTextPresentCheck" />
+
+            </LinearLayout>
+
+            </LinearLayout>
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager"

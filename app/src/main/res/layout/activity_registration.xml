@@ -69,6 +69,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/nameInput"
+                    android:digits="@string/validCharactersFullName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="35dp"
@@ -81,6 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/verificationTextField"
+                android:digits="@string/validCharactersEmail"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"

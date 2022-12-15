@@ -37,8 +37,8 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:maxLength="8"
-                android:textSize="16dp"
-                />
+                android:textSize="18dp"
+                android:digits="@string/validCharactersVerificationCode"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -53,35 +53,6 @@
             android:backgroundTint="@color/uvGreen"
             android:text="@string/sendText"
             android:textSize="16dp"/>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/sendButton"
-            android:layout_centerHorizontal="true">
-            <TextView
-                android:id="@+id/registrationLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/resendCode"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="10dp"/>
-
-            <Button
-                style="@style/Widget.Material3.Button.TextButton"
-                android:id="@+id/registrationButton"
-                android:layout_toRightOf="@id/registrationLabel"
-
-                android:layout_marginLeft="-8dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/retryCodeSent"
-                android:layout_marginTop="1dp"
-                android:textColor="@color/uvBlue"
-                />
-
-        </RelativeLayout>
-
 
     </RelativeLayout>
 
