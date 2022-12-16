@@ -13,4 +13,9 @@
         app:showAsAction="ifRoom"
         android:title="Crear publicación" />
 
+    <item
+        android:id="@+id/blockedUsersOption"
+        app:showAsAction="never"
+        android:title="Usuarios bloqueados"/>
+
 </menu>

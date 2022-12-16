@@ -20,14 +20,28 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".VisualizeFollowersActivity"
+            android:name=".Activities.BlockedUsersActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Activities.VisualizeFollows"
+            android:name=".Activities.FollowRequestsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Activities.VisualizeFollowersActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Activities.VisualizeFollowsActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

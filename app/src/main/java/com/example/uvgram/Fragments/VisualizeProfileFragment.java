@@ -19,13 +19,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.uvgram.Activities.EditProfileActivity;
-import com.example.uvgram.Activities.VisualizeFollows;
+import com.example.uvgram.Activities.VisualizeFollowsActivity;
 import com.example.uvgram.Adapters.ViewPagerAdapter;
 import com.example.uvgram.Models.GetUserResponse;
 import com.example.uvgram.R;
 import com.example.uvgram.ViewModel.HomepageViewModel;
 import com.example.uvgram.ViewModel.HomepageViewModelFactory;
-import com.example.uvgram.VisualizeFollowersActivity;
+import com.example.uvgram.Activities.VisualizeFollowersActivity;
 
 public class VisualizeProfileFragment extends Fragment {
 
@@ -84,7 +84,7 @@ public class VisualizeProfileFragment extends Fragment {
         });
 
         followsListButton.setOnClickListener(v -> {
-            Intent myIntent = new Intent(context, VisualizeFollows.class);
+            Intent myIntent = new Intent(context, VisualizeFollowsActivity.class);
             startActivity(myIntent);
         });
 

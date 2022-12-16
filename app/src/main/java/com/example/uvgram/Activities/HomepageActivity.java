@@ -2,6 +2,9 @@ package com.example.uvgram.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
@@ -16,8 +19,6 @@ public class HomepageActivity extends AppCompatActivity {
     ViewPager2 homepageViewPager;
     TabLayout homepageTabLayout;
     MaterialToolbar toolbar;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +35,12 @@ public class HomepageActivity extends AppCompatActivity {
         toolbar.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.followRequestsButton:
-
+                    Intent myIntent = new Intent(this, FollowRequestsActivity.class);
+                    startActivity(myIntent);
                     return true;
                 case R.id.createPostButton:
-                    Intent myIntent = new Intent(this, CreatePostActivity.class);
-                    startActivity(myIntent);
+                    Intent requestsIntent = new Intent(this, CreatePostActivity.class);
+                    startActivity(requestsIntent);
                     return true;
             }
             return false;
@@ -73,6 +75,25 @@ public class HomepageActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         this.finishAffinity();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.blocked_users_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.blockedUsersOption:
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

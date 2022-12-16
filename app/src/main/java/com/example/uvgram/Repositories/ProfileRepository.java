@@ -13,6 +13,8 @@ import com.example.uvgram.Models.AccountResponse;
 import com.example.uvgram.Models.BlockResponses.BlockResponse;
 import com.example.uvgram.Models.BlockResponses.UnblockResponse;
 import com.example.uvgram.Models.EditProfileResponses.EditProfileResponse;
+import com.example.uvgram.Models.FollowRequestResponse.FollowStateResponse;
+import com.example.uvgram.Models.FollowRequestResponse.RequestResponse;
 import com.example.uvgram.Models.FollowResponses.FollowResponse;
 import com.example.uvgram.Models.FollowResponses.UnfollowResponse;
 
@@ -28,7 +30,7 @@ public class ProfileRepository {
     private final MutableLiveData<UnblockResponse> unblockResponse = new MutableLiveData<>();
     private final MutableLiveData<AccountResponse> accountResponse = new MutableLiveData<>();
     private final MutableLiveData<EditProfileResponse> editProfileResponse = new MutableLiveData<>();
-
+    private final MutableLiveData<RequestResponse> requestResponse = new MutableLiveData<>();
 
     SharedPreferences sharedPreferences;
     Context context;
@@ -191,6 +193,79 @@ public class ProfileRepository {
             }
         });
         return editProfileResponse;
+    }
+
+    public MutableLiveData<RequestResponse> getPendingRequests() {
+        String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
+
+        Call<RequestResponse> call = UVGramAPIAdapter
+                .getApiService()
+                .getPendingRequests("Bearer " + accessToken);
+
+        call.enqueue(new Callback<RequestResponse>() {
+            @Override
+            public void onResponse(Call<RequestResponse> call, Response<RequestResponse> response) {
+                if(response.isSuccessful()) {
+                    requestResponse.setValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RequestResponse> call, Throwable t) {
+                Log.w("MyTag", "requestFailed", t);
+            }
+        });
+        return requestResponse;
+    }
+
+    public MutableLiveData<FollowStateResponse> acceptRequest(String username) {
+        String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
+        MutableLiveData<FollowStateResponse> stateResponse = new MutableLiveData<>();
+
+        Call<FollowStateResponse> call = UVGramAPIAdapter
+                .getApiService()
+                .acceptRequest("Bearer " + accessToken,
+                        username);
+
+        call.enqueue(new Callback<FollowStateResponse>() {
+            @Override
+            public void onResponse(Call<FollowStateResponse> call, Response<FollowStateResponse> response) {
+                if (response.isSuccessful()) {
+                    stateResponse.setValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FollowStateResponse> call, Throwable t) {
+                Log.w("MyTag", "requestFailed", t);
+            }
+        });
+        return stateResponse;
+    }
+
+    public MutableLiveData<FollowStateResponse> denyRequest(String username) {
+        String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
+        MutableLiveData<FollowStateResponse> stateResponse = new MutableLiveData<>();
+
+        Call<FollowStateResponse> call = UVGramAPIAdapter
+                .getApiService()
+                .denyRequest("Bearer " + accessToken,
+                        username);
+
+        call.enqueue(new Callback<FollowStateResponse>() {
+            @Override
+            public void onResponse(Call<FollowStateResponse> call, Response<FollowStateResponse> response) {
+                if (response.isSuccessful()) {
+                    stateResponse.setValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FollowStateResponse> call, Throwable t) {
+                Log.w("MyTag", "requestFailed", t);
+            }
+        });
+        return stateResponse;
     }
 
 }

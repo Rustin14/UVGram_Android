@@ -1,4 +1,4 @@
-package com.example.uvgram;
+package com.example.uvgram.Activities;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.uvgram.Adapters.FollowersAdapter;
+import com.example.uvgram.R;
 import com.example.uvgram.ViewModel.HomepageViewModel;
 import com.example.uvgram.ViewModel.HomepageViewModelFactory;
 
@@ -46,8 +47,9 @@ public class VisualizeFollowersActivity extends AppCompatActivity {
         homepageViewModel.getFollowersOfUsers(username).observe(this, getFollowedByResponse -> {
             if (getFollowedByResponse.getUsersList().size() == 0) {
                 emptyListText.setVisibility(View.VISIBLE);
+            } else {
+                followersAdapter.setUsersList(getFollowedByResponse.getUsersList());
             }
-            followersAdapter.setUsersList(getFollowedByResponse.getUsersList());
         });
 
     }

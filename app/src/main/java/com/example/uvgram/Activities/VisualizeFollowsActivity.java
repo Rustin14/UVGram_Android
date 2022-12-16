@@ -16,7 +16,7 @@ import com.example.uvgram.R;
 import com.example.uvgram.ViewModel.HomepageViewModel;
 import com.example.uvgram.ViewModel.HomepageViewModelFactory;
 
-public class VisualizeFollows extends AppCompatActivity {
+public class VisualizeFollowsActivity extends AppCompatActivity {
 
     String username;
     private HomepageViewModel homepageViewModel;

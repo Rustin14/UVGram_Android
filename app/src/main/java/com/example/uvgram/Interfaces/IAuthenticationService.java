@@ -6,6 +6,8 @@ import com.example.uvgram.Models.BlockResponses.UnblockResponse;
 import com.example.uvgram.Models.CommentPostResponses.CommentPostResponse;
 import com.example.uvgram.Models.CreatePostResponse.CreatePostResponse;
 import com.example.uvgram.Models.EditProfileResponses.EditProfileResponse;
+import com.example.uvgram.Models.FollowRequestResponse.FollowStateResponse;
+import com.example.uvgram.Models.FollowRequestResponse.RequestResponse;
 import com.example.uvgram.Models.FollowResponses.FollowResponse;
 import com.example.uvgram.Models.FollowResponses.UnfollowResponse;
 import com.example.uvgram.Models.FollowingResponse;
@@ -204,4 +206,22 @@ public interface IAuthenticationService {
             @Path("user") String username
     );
 
+    @GET("user/followers/pending/")
+    Call<RequestResponse> getPendingRequests(
+            @Header("Authorization") String token
+    );
+
+    @FormUrlEncoded
+    @POST("user/followers/accept/")
+    Call<FollowStateResponse> acceptRequest(
+            @Header("Authorization") String token,
+            @Field("username") String username
+    );
+
+    @FormUrlEncoded
+    @POST("user/followers/deny/")
+    Call<FollowStateResponse> denyRequest(
+            @Header("Authorization") String token,
+            @Field("username") String username
+    );
 }

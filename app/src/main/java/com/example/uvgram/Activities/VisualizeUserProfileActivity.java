@@ -18,7 +18,6 @@ import com.example.uvgram.ViewModel.HomepageViewModel;
 import com.example.uvgram.ViewModel.HomepageViewModelFactory;
 import com.example.uvgram.ViewModel.ProfileViewModel;
 import com.example.uvgram.ViewModel.ProfileViewModelFactory;
-import com.example.uvgram.VisualizeFollowersActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -120,7 +119,7 @@ public class VisualizeUserProfileActivity extends AppCompatActivity {
         });
 
         followsListButton.setOnClickListener(v -> {
-            Intent myIntent = new Intent(this, VisualizeFollows.class);
+            Intent myIntent = new Intent(this, VisualizeFollowsActivity.class);
             myIntent.putExtra("PROFILE_USER", username);
             startActivity(myIntent);
         });

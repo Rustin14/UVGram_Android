@@ -4,23 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.VisualizeFollowsActivity"
-    android:orientation="vertical">
+    tools:context=".Activities.FollowRequestsActivity"
+    android:orientation="vertical"
+    android:id="@+id/parentLayout">
 
     <TextView
+        android:id="@+id/requestsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Seguidores"
-        android:textStyle="bold"
-        android:textSize="32dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"/>
+        android:text="Solicitudes de seguimiento"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:textSize="24dp"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/emptyListText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Sin seguidores."
+        android:text="Sin solicitudes."
         android:textSize="16dp"
         android:gravity="center"
         android:visibility="gone"
@@ -28,9 +30,10 @@
         android:layout_marginTop="10dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/requestsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/fragment_follower_item"/>
+        android:layout_marginTop="10dp"
+        tools:listitem="@layout/follow_request_item"/>
 
 </LinearLayout>

@@ -11,6 +11,8 @@ import com.example.uvgram.Models.AccountResponse;
 import com.example.uvgram.Models.BlockResponses.BlockResponse;
 import com.example.uvgram.Models.BlockResponses.UnblockResponse;
 import com.example.uvgram.Models.EditProfileResponses.EditProfileResponse;
+import com.example.uvgram.Models.FollowRequestResponse.FollowStateResponse;
+import com.example.uvgram.Models.FollowRequestResponse.RequestResponse;
 import com.example.uvgram.Models.FollowResponses.FollowResponse;
 import com.example.uvgram.Models.FollowResponses.UnfollowResponse;
 import com.example.uvgram.Repositories.ProfileRepository;
@@ -23,7 +25,7 @@ public class ProfileViewModel extends AndroidViewModel {
     private MutableLiveData<FollowResponse> followResponse = new MutableLiveData<>();
     private MutableLiveData<UnfollowResponse> unfollowResponse = new MutableLiveData<>();
     private MutableLiveData<UnblockResponse> unblockResponse = new MutableLiveData<>();
-
+    private MutableLiveData<RequestResponse> requestResponse = new MutableLiveData<>();
 
     public ProfileViewModel(@NonNull Application application) {
         super(application);
@@ -58,6 +60,21 @@ public class ProfileViewModel extends AndroidViewModel {
     public MutableLiveData<UnblockResponse> unblockUser(String username) {
         unblockResponse = repository.unblockUser(username);
         return unblockResponse;
+    }
+
+    public MutableLiveData<RequestResponse> getPendingRequests() {
+        requestResponse = repository.getPendingRequests();
+        return requestResponse;
+    }
+
+    public MutableLiveData<FollowStateResponse> acceptRequest(String username) {
+        MutableLiveData<FollowStateResponse> acceptResponse = repository.acceptRequest(username);
+        return acceptResponse;
+    }
+
+    public MutableLiveData<FollowStateResponse> denyRequest(String username) {
+        MutableLiveData<FollowStateResponse> denyResponse = repository.acceptRequest(username);
+        return denyResponse;
     }
 
 }
