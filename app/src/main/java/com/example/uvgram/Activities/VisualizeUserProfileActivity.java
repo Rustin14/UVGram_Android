@@ -18,6 +18,7 @@ import com.example.uvgram.ViewModel.HomepageViewModel;
 import com.example.uvgram.ViewModel.HomepageViewModelFactory;
 import com.example.uvgram.ViewModel.ProfileViewModel;
 import com.example.uvgram.ViewModel.ProfileViewModelFactory;
+import com.example.uvgram.VisualizeFollowersActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -34,6 +35,9 @@ public class VisualizeUserProfileActivity extends AppCompatActivity {
     boolean isFollowed = false;
     MaterialButton unfollowButton;
     Button blockButton;
+    Button followsListButton;
+    Button followersListButton;
+    Button postsButton;
     String username;
     Message profileUser;
     ConstraintLayout parentLayout;
@@ -43,13 +47,15 @@ public class VisualizeUserProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visualize_user_profile);
         username = (String) getIntent().getSerializableExtra("USERNAME");
-        isFollowed = (boolean) getIntent().getSerializableExtra("IS_FOLLOWED");
 
         userFullNameText = findViewById(R.id.userFullNameText);
         usernameText = findViewById(R.id.usernameText);
         presentationText = findViewById(R.id.presentationText);
         followButton = findViewById(R.id.followButton);
         unfollowButton = findViewById(R.id.unfollowButton);
+        followsListButton = findViewById(R.id.followsButton);
+        followersListButton = findViewById(R.id.followersButton);
+        postsButton = findViewById(R.id.postsButton);
         blockButton = findViewById(R.id.blockButton);
         viewPager = findViewById(R.id.viewPager);
         parentLayout = findViewById(R.id.parentLayout);
@@ -68,6 +74,9 @@ public class VisualizeUserProfileActivity extends AppCompatActivity {
             viewPagerAdapter = new ViewPagerAdapter(this);
             viewPager.setAdapter(viewPagerAdapter);
         });
+
+        isFollowed = (boolean) getIntent().getSerializableExtra("IS_FOLLOWED");
+        validateFollowState();
 
         blockButton.setOnClickListener(v -> {
             profileViewModel.blockUser(username).observe(this, blockResponse -> {
@@ -88,8 +97,10 @@ public class VisualizeUserProfileActivity extends AppCompatActivity {
                 followButton.setBackgroundColor(getResources().getColor(R.color.uvGreen));
                 followButton.setTextColor(getResources().getColor(R.color.black));
                 followButton.setEnabled(false);
-                unfollowButton.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_baseline_follow_account_24));
+                unfollowButton.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_baseline_person_remove_24));
                 unfollowButton.setEnabled(true);
+                int followers = Integer.parseInt(profileUser.getFollowers()) + 1;
+                followersListButton.setText(followers + "\nseguidores");
             });
         });
 
@@ -101,25 +112,42 @@ public class VisualizeUserProfileActivity extends AppCompatActivity {
                     followButton.setTextColor(getResources().getColor(R.color.white));
                     followButton.setEnabled(true);
                     unfollowButton.setEnabled(false);
+                    unfollowButton.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_baseline_follow_account_24));
+                    int followers = Integer.parseInt(profileUser.getFollowers()) - 1;
+                    followersListButton.setText(followers + "\nseguidores");
                 }
             });
         });
-        validateFollowState();
+
+        followsListButton.setOnClickListener(v -> {
+            Intent myIntent = new Intent(this, VisualizeFollows.class);
+            myIntent.putExtra("PROFILE_USER", username);
+            startActivity(myIntent);
+        });
+
+        followersListButton.setOnClickListener(view -> {
+            Intent myIntent = new Intent(this, VisualizeFollowersActivity.class);
+            myIntent.putExtra("PROFILE_USER", username);
+            startActivity(myIntent);
+        });
     }
 
     private void setUserInfo() {
         userFullNameText.setText(profileUser.getName());
         usernameText.setText(profileUser.getUsername());
         presentationText.setText(profileUser.getPresentation());
+        followersListButton.setText(profileUser.getFollowers() + "\nseguidores");
+        followsListButton.setText(profileUser.getFollowed() + "\nseguidos");
+        postsButton.setText(profileUser.getPosts().size() + "\npublicaciones");
     }
 
     private void validateFollowState() {
         if (isFollowed) {
             followButton.setText("Seguido");
-            followButton.setBackgroundColor(getResources().getColor(R.color.uvBlue));
-            followButton.setTextColor(getResources().getColor(R.color.black));
+            followButton.setBackgroundColor(getResources().getColor(R.color.uvGreen));
+            followButton.setTextColor(getResources().getColor(R.color.white));
             followButton.setEnabled(false);
-            unfollowButton.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_baseline_follow_account_24));
+            unfollowButton.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_baseline_person_remove_24));
             unfollowButton.setEnabled(true);
         }
     }

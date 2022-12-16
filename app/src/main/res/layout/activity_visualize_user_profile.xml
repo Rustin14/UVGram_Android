@@ -51,6 +51,48 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profileLayout"
+                android:id="@+id/numbersLayout"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true">
+
+                <Button
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:id="@+id/followsButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:textSize="16dp"
+                    android:text="{x}\nseguidos"
+                    android:textAlignment="textStart"/>
+
+                <Button
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:id="@+id/followersButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:textSize="16dp"
+                    android:text="{x}\nseguidores"
+                    android:textAlignment="textStart"/>
+
+                <Button
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:id="@+id/postsButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="16dp"
+                    android:text="{x} \npublicaciones"
+                    android:textAlignment="textStart"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
             android:id="@+id/buttonsLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,7 +100,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
             android:visibility="visible"
-            android:layout_below="@+id/profileLayout"
+            android:layout_below="@+id/numbersLayout"
             android:orientation="horizontal">
 
                 <LinearLayout

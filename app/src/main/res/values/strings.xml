@@ -47,5 +47,6 @@
     <string name="validCharactersFullName">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
     <string name="validCharactersEmail">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789-@.</string>
     <string name="validCharactersPhone">123456789</string>
+
     <style name="errorText">Ha ocurrido un error. Inténtelo de nuevo.</style>
 </resources>

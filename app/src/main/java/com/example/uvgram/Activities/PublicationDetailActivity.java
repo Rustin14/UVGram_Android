@@ -111,9 +111,7 @@ public class PublicationDetailActivity extends AppCompatActivity {
 
         usernameTextView.setOnClickListener(view -> {
             Intent myIntent = new Intent(this, VisualizeUserProfileActivity.class);
-            myIntent.putExtra("IS_FOLLOWED", validateFollowState());
-            myIntent.putExtra("USERNAME", post.getUsername());
-            startActivity(myIntent);
+            validateFollowState(myIntent);
         });
 
         if (post == null) {
@@ -133,8 +131,8 @@ public class PublicationDetailActivity extends AppCompatActivity {
         inputMethodManager.showSoftInput(commentEditText, InputMethodManager.SHOW_IMPLICIT);
     }
 
-    private boolean validateFollowState() {
-        final boolean[] isFollowed = {false};
+    private void validateFollowState(Intent myIntent) {
+        final boolean isFollowed[] = {false};
         profileViewModel.followUser(postUsername).observe(this, new Observer<FollowResponse>() {
             @Override
             public void onChanged(FollowResponse followResponse) {
@@ -143,9 +141,12 @@ public class PublicationDetailActivity extends AppCompatActivity {
                 } else {
                     profileViewModel.unfollowUser(postUsername);
                 }
+                myIntent.putExtra("IS_FOLLOWED", isFollowed[0]);
+                myIntent.putExtra("USERNAME", post.getUsername());
+                myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(myIntent);
             }
         });
-        return isFollowed[0];
     }
 
 

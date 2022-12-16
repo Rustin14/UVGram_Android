@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.uvgram.Connection.UVGramDatabase;
+import com.example.uvgram.Models.GetFollowedByResponse;
 import com.example.uvgram.Models.GetUserResponse;
 import com.example.uvgram.Models.Post;
 import com.example.uvgram.Repositories.HomepageRepository;
@@ -19,6 +20,7 @@ public class HomepageViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<Post>> postsList = new MutableLiveData<>();
     private MutableLiveData<GetUserResponse> userResponse = new MutableLiveData<>();
+    private MutableLiveData<GetFollowedByResponse> followedByResponse = new MutableLiveData<>();
 
     public HomepageViewModel (@NonNull Application application) {
         super(application);
@@ -40,6 +42,16 @@ public class HomepageViewModel extends AndroidViewModel {
     public MutableLiveData<GetUserResponse> getUser(String username) {
         userResponse = repository.getUser(username);
         return userResponse;
+    }
+
+    public MutableLiveData<GetFollowedByResponse> getFollowedByUsers(String username) {
+        followedByResponse = repository.getFollowedUsers(username);
+        return followedByResponse;
+    }
+
+    public MutableLiveData<GetFollowedByResponse> getFollowersOfUsers(String username) {
+        followedByResponse = repository.getFollowersUsers(username);
+        return followedByResponse;
     }
 
 }

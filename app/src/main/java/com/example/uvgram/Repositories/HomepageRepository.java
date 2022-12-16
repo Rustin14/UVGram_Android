@@ -11,6 +11,7 @@ import com.example.uvgram.Connection.UVGramAPIAdapter;
 import com.example.uvgram.Connection.UVGramDatabase;
 import com.example.uvgram.Interfaces.OnDataLoaded;
 import com.example.uvgram.Models.FollowingResponse;
+import com.example.uvgram.Models.GetFollowedByResponse;
 import com.example.uvgram.Models.GetUserResponse;
 import com.example.uvgram.Models.Message;
 import com.example.uvgram.Models.Post;
@@ -31,6 +32,7 @@ public class HomepageRepository implements OnDataLoaded {
     private final UVGramDatabase database;
     private final MutableLiveData<List<Post>> postList = new MutableLiveData<>();
     private final MutableLiveData<GetUserResponse> userResponse = new MutableLiveData<>();
+    private final MutableLiveData<GetFollowedByResponse> followedByResponse = new MutableLiveData<>();
 
     public HomepageRepository (UVGramDatabase database, Context context) {
         this.database = database;
@@ -78,6 +80,56 @@ public class HomepageRepository implements OnDataLoaded {
             }
         });
         return postList;
+    }
+
+    public MutableLiveData<GetFollowedByResponse> getFollowedUsers(String username) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
+
+        Call<GetFollowedByResponse> call = UVGramAPIAdapter
+                .getApiService()
+                .getFollowedByUsers("Bearer " + accessToken,
+                        username);
+
+        call.enqueue(new Callback<GetFollowedByResponse>() {
+            @Override
+            public void onResponse(Call<GetFollowedByResponse> call, Response<GetFollowedByResponse> response) {
+                if (response.isSuccessful()) {
+                    followedByResponse.setValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetFollowedByResponse> call, Throwable t) {
+
+            }
+        });
+        return followedByResponse;
+    }
+
+    public MutableLiveData<GetFollowedByResponse> getFollowersUsers(String username) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
+
+        Call<GetFollowedByResponse> call = UVGramAPIAdapter
+                .getApiService()
+                .getFollowersOfUsers("Bearer " + accessToken,
+                        username);
+
+        call.enqueue(new Callback<GetFollowedByResponse>() {
+            @Override
+            public void onResponse(Call<GetFollowedByResponse> call, Response<GetFollowedByResponse> response) {
+                if (response.isSuccessful()) {
+                    followedByResponse.setValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetFollowedByResponse> call, Throwable t) {
+
+            }
+        });
+        return followedByResponse;
     }
 
     // Obtener posts de cada usuario que siga el usuario que inició sesión

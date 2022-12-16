@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.uvgram.Activities.PublicationDetailActivity;
 import com.example.uvgram.Adapters.PostAdapter;
-import com.example.uvgram.Models.LikeResponses.LikedBy;
 import com.example.uvgram.R;
 import com.example.uvgram.ViewModel.CommentsViewModel;
 import com.example.uvgram.ViewModel.CommentsViewModelFactory;
@@ -26,13 +25,11 @@ import com.example.uvgram.ViewModel.HomepageViewModelFactory;
 import com.example.uvgram.ViewModel.LikesViewModel;
 import com.example.uvgram.ViewModel.LikesViewModelFactory;
 
-import java.util.List;
-
 public class CardListViewFragment extends Fragment {
 
     String username;
     private HomepageViewModel viewModel;
-    private LikesViewModel likesViewModel;
+    private static LikesViewModel likesViewModel;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -90,15 +87,6 @@ public class CardListViewFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_card_list_view, container, false);
     }
 
-    public boolean userLikedPost(List<LikedBy> likesDetails, String username) {
-        boolean likesPost = false;
-        for (int i = 0; i < likesDetails.size(); i++) {
-            if (likesDetails.get(i).getUsername() == username) {
-                likesPost = true;
-            }
-        }
-        return likesPost;
-    }
 
 
 

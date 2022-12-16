@@ -32,6 +32,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
         this.likesViewModel = likesViewModel;
     }
 
+    public void setIsPostLiked(boolean isPostLiked) {
+        this.isPostLiked = isPostLiked;
+    }
+
     public interface OnItemClickListener {
         void onItemClick(Post post);
     }

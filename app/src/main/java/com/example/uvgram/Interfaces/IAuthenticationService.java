@@ -10,6 +10,7 @@ import com.example.uvgram.Models.FollowResponses.FollowResponse;
 import com.example.uvgram.Models.FollowResponses.UnfollowResponse;
 import com.example.uvgram.Models.FollowingResponse;
 import com.example.uvgram.Models.GetCommentsResponses.GetCommentsResponse;
+import com.example.uvgram.Models.GetFollowedByResponse;
 import com.example.uvgram.Models.GetPostsMessage;
 import com.example.uvgram.Models.GetUserResponse;
 import com.example.uvgram.Models.LikeResponses.DislikeResponse;
@@ -191,5 +192,16 @@ public interface IAuthenticationService {
             @Part("likesAllowed") boolean likesAllowed
     );
 
+    @GET("user/followed-by/{user}")
+    Call<GetFollowedByResponse> getFollowedByUsers(
+            @Header("Authorization") String token,
+            @Path("user") String username
+    );
+
+    @GET("user/followers-of/{user}")
+    Call<GetFollowedByResponse> getFollowersOfUsers(
+            @Header("Authorization") String token,
+            @Path("user") String username
+    );
 
 }

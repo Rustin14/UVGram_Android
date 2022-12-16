@@ -7,7 +7,7 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Fragments.VisualizeProfileFragment">
@@ -49,56 +49,67 @@
 
             </RelativeLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profileLayout"
+                android:id="@+id/numbersLayout"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true">
+
+                <Button
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:id="@+id/followsButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:textSize="16dp"
+                    android:text="{x}\nseguidos"
+                    android:textAlignment="textStart"/>
+
+                <Button
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:id="@+id/followersButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:textSize="16dp"
+                    android:text="{x}\nseguidores"
+                    android:textAlignment="textStart"/>
+
+                <Button
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:id="@+id/postsButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="16dp"
+                    android:text="{x} \npublicaciones"
+                    android:textAlignment="textStart"/>
+
+
+            </LinearLayout>
+
             <Button
                 style="@style/Widget.Material3.Button.TonalButton"
                 android:id="@+id/editProfileButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/profileLayout"
+                android:layout_below="@id/numbersLayout"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:visibility="visible"
                 android:text="@string/editProfile"/>
 
-            <LinearLayout
-                android:id="@+id/buttonsLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:visibility="invisible"
-                android:layout_below="@+id/profileLayout">
-
-                <Button
-                    style="@style/Widget.Material3.Button.TonalButton"
-                    android:id="@+id/followButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:text="@string/followText"
-                    android:layout_weight="1"/>
-
-                <Button
-                    android:id="@+id/blockButton"
-                    style="?attr/materialIconButtonFilledTonalStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    app:icon="@drawable/ic_baseline_block_24"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-            </LinearLayout>
-
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/buttonsLayout"/>
+                android:layout_below="@+id/editProfileButton"/>
 
         </RelativeLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 </layout>
