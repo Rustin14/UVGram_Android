@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -27,12 +28,14 @@ public class PublicationsFragment extends Fragment {
     GridView gridView;
     HomepageViewModel homepageViewModel;
     ArrayList<Post> userPosts = new ArrayList<>();
+    TextView emptyListView;
     String username;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         gridView = getView().findViewById(R.id.photosGridView);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        emptyListView = getView().findViewById(R.id.emptyListText);
 
         // Bloque para decidir si se muestran los Posts del usuario que inició sesión o de otro usuario.
         String intentUsername = (String) getActivity().getIntent().getSerializableExtra("USERNAME");
@@ -56,9 +59,14 @@ public class PublicationsFragment extends Fragment {
                 .get(HomepageViewModel.class);
 
         homepageViewModel.getUser(username).observe(getViewLifecycleOwner(), userResponse -> {
-            userPosts.addAll(userResponse.getMessage().getPosts());
-            imagesAdapter.setPostList(userPosts);
-            gridView.setAdapter(imagesAdapter);
+            if (userResponse.getMessage().getPosts().size() > 0) {
+                userPosts.addAll(userResponse.getMessage().getPosts());
+                imagesAdapter.setPostList(userPosts);
+                gridView.setAdapter(imagesAdapter);
+            } else {
+                imagesAdapter.setPostList(new ArrayList<>());
+                emptyListView.setVisibility(View.VISIBLE);
+            }
         });
     }
     @Override

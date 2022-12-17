@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentLayout"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,7 +22,7 @@
         android:id="@+id/emptyListText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Sin solicitudes."
+        android:text="No tienes usuarios bloqueados."
         android:textSize="16dp"
         android:gravity="center"
         android:visibility="gone"
@@ -29,10 +30,10 @@
         android:layout_marginTop="10dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/requestsRecyclerView"
+        android:id="@+id/blocksRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
-        tools:listitem="@layout/follow_request_item"/>
+        tools:listitem="@layout/blocked_user_item"/>
 
 </LinearLayout>

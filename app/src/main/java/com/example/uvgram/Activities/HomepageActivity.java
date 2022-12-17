@@ -2,9 +2,6 @@ package com.example.uvgram.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
@@ -42,6 +39,10 @@ public class HomepageActivity extends AppCompatActivity {
                     Intent requestsIntent = new Intent(this, CreatePostActivity.class);
                     startActivity(requestsIntent);
                     return true;
+                case R.id.blockedUsersOption:
+                    Intent intent = new Intent(this, BlockedUsersActivity.class);
+                    startActivity(intent);
+                    return true;
             }
             return false;
         });
@@ -77,23 +78,7 @@ public class HomepageActivity extends AppCompatActivity {
         this.finishAffinity();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.blocked_users_menu, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.blockedUsersOption:
 
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
 }

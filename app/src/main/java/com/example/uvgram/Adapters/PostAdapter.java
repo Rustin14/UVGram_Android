@@ -98,7 +98,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
             usernameText.setText(post.getUsername());
             descriptionText.setText(post.getDescription());
             likesViewModel.getPostLikesDetails(post.getUuid());
-            likeButton.setChecked(isPostLiked);
+            likeButton.setChecked(post.isLiked());
 
             commentButton.setOnClickListener(view -> {
                 listener.onItemClick(post);

@@ -82,9 +82,12 @@ public class CardListViewAdapter extends BaseAdapter implements OnDataLoaded {
     }
 
     public void getUser() {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
         Call<GetUserResponse> userCall = UVGramAPIAdapter
                 .getApiService()
-                .getUser(username);
+                .getUser("Bearer " + accessToken,
+                        username);
 
         userCall.enqueue(new Callback<GetUserResponse>() {
             @Override
@@ -101,11 +104,14 @@ public class CardListViewAdapter extends BaseAdapter implements OnDataLoaded {
     }
 
     public void getUsersAndPosts() {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
         for (int i = 0; i < followsList.size(); i++) {
             int finalI = i;
             Call<GetUserResponse> userCall = UVGramAPIAdapter
                     .getApiService()
-                    .getUser(followsList.get(i).getUsername());
+                    .getUser("Bearer " + accessToken,
+                            followsList.get(i).getUsername());
             userCall.enqueue(new Callback<GetUserResponse>() {
                 @Override
                 public void onResponse(Call<GetUserResponse> call, Response<GetUserResponse> response) {

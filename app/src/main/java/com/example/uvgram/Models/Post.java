@@ -29,6 +29,9 @@ public class Post implements Serializable {
     @SerializedName("comments")
     @Expose
     private Integer comments;
+    @SerializedName("isLiked")
+    @Expose
+    boolean isLiked;
     @SerializedName("files")
     @Expose
     private List<File> files = null;
@@ -104,5 +107,13 @@ public class Post implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
     }
 }

@@ -75,7 +75,11 @@ public class VisualizeProfileFragment extends Fragment {
             presentationText.setText(response.getMessage().getPresentation());
             followsListButton.setText(response.getMessage().getFollowed() + "\nseguidos");
             followersListButton.setText(response.getMessage().getFollowers() + "\nseguidores");
-            postsListButton.setText(response.getMessage().getPosts().size() + "\npublicaciones");
+            if (response.getMessage().getPosts() == null) {
+                postsListButton.setText("0\npublicaciones");
+            } else {
+                postsListButton.setText(response.getMessage().getPosts().size() + "\npublicaciones");
+            }
         });
 
         followersListButton.setOnClickListener(v -> {

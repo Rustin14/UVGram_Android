@@ -2,12 +2,12 @@ package com.example.uvgram.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -18,7 +18,6 @@ import com.example.uvgram.ViewModel.HomepageViewModel;
 import com.example.uvgram.ViewModel.HomepageViewModelFactory;
 import com.example.uvgram.ViewModel.ProfileViewModel;
 import com.example.uvgram.ViewModel.ProfileViewModelFactory;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 
 public class VisualizeUserProfileActivity extends AppCompatActivity {
@@ -32,7 +31,7 @@ public class VisualizeUserProfileActivity extends AppCompatActivity {
     ProfileViewModel profileViewModel;
     Button followButton;
     boolean isFollowed = false;
-    MaterialButton unfollowButton;
+    Button unfollowButton;
     Button blockButton;
     Button followsListButton;
     Button followersListButton;
@@ -74,9 +73,6 @@ public class VisualizeUserProfileActivity extends AppCompatActivity {
             viewPager.setAdapter(viewPagerAdapter);
         });
 
-        isFollowed = (boolean) getIntent().getSerializableExtra("IS_FOLLOWED");
-        validateFollowState();
-
         blockButton.setOnClickListener(v -> {
             profileViewModel.blockUser(username).observe(this, blockResponse -> {
                 if (blockResponse.getMessage().equals("you have blocked to " + username)) {
@@ -92,12 +88,10 @@ public class VisualizeUserProfileActivity extends AppCompatActivity {
 
         followButton.setOnClickListener(v -> {
             profileViewModel.followUser(username).observe(this, followResponse -> {
-                followButton.setText("Seguido");
-                followButton.setBackgroundColor(getResources().getColor(R.color.uvGreen));
-                followButton.setTextColor(getResources().getColor(R.color.black));
-                followButton.setEnabled(false);
-                unfollowButton.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_baseline_person_remove_24));
                 unfollowButton.setEnabled(true);
+                unfollowButton.setVisibility(View.VISIBLE);
+                followButton.setEnabled(false);
+                followButton.setVisibility(View.GONE);
                 int followers = Integer.parseInt(profileUser.getFollowers()) + 1;
                 followersListButton.setText(followers + "\nseguidores");
             });
@@ -106,12 +100,10 @@ public class VisualizeUserProfileActivity extends AppCompatActivity {
         unfollowButton.setOnClickListener(view -> {
             profileViewModel.unfollowUser(username).observe(this, unfollowResponse -> {
                 if (unfollowResponse != null) {
-                    followButton.setText("Seguir");
-                    followButton.setBackgroundColor(getResources().getColor(R.color.uvBlue));
-                    followButton.setTextColor(getResources().getColor(R.color.white));
                     followButton.setEnabled(true);
+                    followButton.setVisibility(View.VISIBLE);
                     unfollowButton.setEnabled(false);
-                    unfollowButton.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_baseline_follow_account_24));
+                    unfollowButton.setVisibility(View.GONE);
                     int followers = Integer.parseInt(profileUser.getFollowers()) - 1;
                     followersListButton.setText(followers + "\nseguidores");
                 }
@@ -138,16 +130,15 @@ public class VisualizeUserProfileActivity extends AppCompatActivity {
         followersListButton.setText(profileUser.getFollowers() + "\nseguidores");
         followsListButton.setText(profileUser.getFollowed() + "\nseguidos");
         postsButton.setText(profileUser.getPosts().size() + "\npublicaciones");
+        validateFollowState();
     }
 
     private void validateFollowState() {
-        if (isFollowed) {
-            followButton.setText("Seguido");
-            followButton.setBackgroundColor(getResources().getColor(R.color.uvGreen));
-            followButton.setTextColor(getResources().getColor(R.color.white));
-            followButton.setEnabled(false);
-            unfollowButton.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_baseline_person_remove_24));
+        if (profileUser.isFollowed()) {
             unfollowButton.setEnabled(true);
+            unfollowButton.setVisibility(View.VISIBLE);
+            followButton.setEnabled(false);
+            followButton.setVisibility(View.GONE);
         }
     }
 

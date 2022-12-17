@@ -15,6 +15,7 @@ import com.example.uvgram.Models.FollowRequestResponse.FollowStateResponse;
 import com.example.uvgram.Models.FollowRequestResponse.RequestResponse;
 import com.example.uvgram.Models.FollowResponses.FollowResponse;
 import com.example.uvgram.Models.FollowResponses.UnfollowResponse;
+import com.example.uvgram.Models.GetBlockedUsers.GetBlockedUsersResponse;
 import com.example.uvgram.Repositories.ProfileRepository;
 
 public class ProfileViewModel extends AndroidViewModel {
@@ -75,6 +76,11 @@ public class ProfileViewModel extends AndroidViewModel {
     public MutableLiveData<FollowStateResponse> denyRequest(String username) {
         MutableLiveData<FollowStateResponse> denyResponse = repository.acceptRequest(username);
         return denyResponse;
+    }
+
+    public MutableLiveData<GetBlockedUsersResponse> getBlockedUsers() {
+        MutableLiveData<GetBlockedUsersResponse> blockedUsersResponse = repository.getBlockedUsers();
+        return blockedUsersResponse;
     }
 
 }

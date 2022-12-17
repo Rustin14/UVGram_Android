@@ -2,9 +2,7 @@ package com.example.uvgram.Activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -12,12 +10,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.example.uvgram.Adapters.CommentsAdapter;
-import com.example.uvgram.Models.FollowResponses.FollowResponse;
 import com.example.uvgram.Models.Post;
 import com.example.uvgram.R;
 import com.example.uvgram.ViewModel.CommentsViewModel;
@@ -49,7 +45,6 @@ public class PublicationDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publication_detail);
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         post = (Post) getIntent().getSerializableExtra("POST");
         postUsername = (String) getIntent().getSerializableExtra("USERNAME");
@@ -111,7 +106,9 @@ public class PublicationDetailActivity extends AppCompatActivity {
 
         usernameTextView.setOnClickListener(view -> {
             Intent myIntent = new Intent(this, VisualizeUserProfileActivity.class);
-            validateFollowState(myIntent);
+            myIntent.putExtra("USERNAME", post.getUsername());
+            myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(myIntent);
         });
 
         if (post == null) {
@@ -121,6 +118,7 @@ public class PublicationDetailActivity extends AppCompatActivity {
         }
         Glide.with(getApplicationContext()).load(post.getFiles().get(0).getUrl()).centerCrop().into(postImageView);
         descriptionTextView.setText(post.getDescription());
+        likeIcon.setChecked(post.isLiked());
     }
 
     private void focusCommentInput() {
@@ -129,24 +127,6 @@ public class PublicationDetailActivity extends AppCompatActivity {
         final InputMethodManager inputMethodManager = (InputMethodManager) getApplicationContext()
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.showSoftInput(commentEditText, InputMethodManager.SHOW_IMPLICIT);
-    }
-
-    private void validateFollowState(Intent myIntent) {
-        final boolean isFollowed[] = {false};
-        profileViewModel.followUser(postUsername).observe(this, new Observer<FollowResponse>() {
-            @Override
-            public void onChanged(FollowResponse followResponse) {
-                if (followResponse.getHttpCode() == 403) {
-                    isFollowed[0] = true;
-                } else {
-                    profileViewModel.unfollowUser(postUsername);
-                }
-                myIntent.putExtra("IS_FOLLOWED", isFollowed[0]);
-                myIntent.putExtra("USERNAME", post.getUsername());
-                myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(myIntent);
-            }
-        });
     }
 
 

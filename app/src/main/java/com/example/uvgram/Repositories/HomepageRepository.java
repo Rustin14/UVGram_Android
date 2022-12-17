@@ -63,9 +63,12 @@ public class HomepageRepository implements OnDataLoaded {
 
     // TODO: Agregar parámetro String username
     public MutableLiveData<List<Post>> getFollowedUsersPosts(String username) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
         Call<GetUserResponse> userCall = UVGramAPIAdapter
                 .getApiService()
-                .getUser(username);
+                .getUser("Bearer " + accessToken,
+                        username);
 
         userCall.enqueue(new Callback<GetUserResponse>() {
             @Override
@@ -134,11 +137,14 @@ public class HomepageRepository implements OnDataLoaded {
 
     // Obtener posts de cada usuario que siga el usuario que inició sesión
     public void getUsersPosts(ArrayList<User> followsList) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
         for (int i = 0; i < followsList.size(); i++) {
             int finalI = i;
             Call<GetUserResponse> userCall = UVGramAPIAdapter
                     .getApiService()
-                    .getUser(followsList.get(i).getUsername());
+                    .getUser("Bearer " + accessToken,
+                            followsList.get(i).getUsername());
             userCall.enqueue(new Callback<GetUserResponse>() {
                 @Override
                 public void onResponse(Call<GetUserResponse> call, Response<GetUserResponse> response) {
@@ -155,9 +161,13 @@ public class HomepageRepository implements OnDataLoaded {
     }
 
     public MutableLiveData<GetUserResponse> getSignedInUser(String username) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
+
         Call<GetUserResponse> userCall = UVGramAPIAdapter
                 .getApiService()
-                .getUser(username);
+                .getUser("Bearer " + accessToken,
+                        username);
 
         userCall.enqueue(new Callback<GetUserResponse>() {
             @Override
@@ -175,9 +185,13 @@ public class HomepageRepository implements OnDataLoaded {
     }
 
     public MutableLiveData<GetUserResponse> getUser(String username) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
+
         Call<GetUserResponse> userCall = UVGramAPIAdapter
                 .getApiService()
-                .getUser(username);
+                .getUser("Bearer " + accessToken,
+                        username);
 
         userCall.enqueue(new Callback<GetUserResponse>() {
             @Override

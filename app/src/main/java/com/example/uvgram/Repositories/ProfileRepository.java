@@ -17,6 +17,7 @@ import com.example.uvgram.Models.FollowRequestResponse.FollowStateResponse;
 import com.example.uvgram.Models.FollowRequestResponse.RequestResponse;
 import com.example.uvgram.Models.FollowResponses.FollowResponse;
 import com.example.uvgram.Models.FollowResponses.UnfollowResponse;
+import com.example.uvgram.Models.GetBlockedUsers.GetBlockedUsersResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -266,6 +267,30 @@ public class ProfileRepository {
             }
         });
         return stateResponse;
+    }
+
+    public MutableLiveData<GetBlockedUsersResponse> getBlockedUsers() {
+        String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
+        MutableLiveData<GetBlockedUsersResponse> blockedUsersResponse = new MutableLiveData<>();
+
+        Call<GetBlockedUsersResponse> call = UVGramAPIAdapter
+                .getApiService()
+                .getBlockedUsers("Bearer " + accessToken);
+
+        call.enqueue(new Callback<GetBlockedUsersResponse>() {
+            @Override
+            public void onResponse(Call<GetBlockedUsersResponse> call, Response<GetBlockedUsersResponse> response) {
+                if (response.isSuccessful()) {
+                    blockedUsersResponse.setValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetBlockedUsersResponse> call, Throwable t) {
+                Log.w("MyTag", "requestFailed", t);
+            }
+        });
+        return blockedUsersResponse;
     }
 
 }

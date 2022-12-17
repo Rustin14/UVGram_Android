@@ -16,8 +16,11 @@ public class Message implements Serializable {
     String followers;
     @SerializedName("followed")
     String followed;
+    @SerializedName("isFollowed")
+    boolean isFollowed;
     @SerializedName("posts")
     List<Post> posts;
+
 
     public String getName() {
         return name;
@@ -67,4 +70,11 @@ public class Message implements Serializable {
         this.posts = posts;
     }
 
+    public boolean isFollowed() {
+        return isFollowed;
+    }
+
+    public void setFollowed(boolean followed) {
+        isFollowed = followed;
+    }
 }

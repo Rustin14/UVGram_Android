@@ -11,6 +11,7 @@ import com.example.uvgram.Models.FollowRequestResponse.RequestResponse;
 import com.example.uvgram.Models.FollowResponses.FollowResponse;
 import com.example.uvgram.Models.FollowResponses.UnfollowResponse;
 import com.example.uvgram.Models.FollowingResponse;
+import com.example.uvgram.Models.GetBlockedUsers.GetBlockedUsersResponse;
 import com.example.uvgram.Models.GetCommentsResponses.GetCommentsResponse;
 import com.example.uvgram.Models.GetFollowedByResponse;
 import com.example.uvgram.Models.GetPostsMessage;
@@ -28,7 +29,6 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
@@ -79,6 +79,7 @@ public interface IAuthenticationService {
 
     @GET("/{username}")
     Call<GetUserResponse> getUser(
+            @Header("Authorization") String token,
             @Path("username") String username
     );
 
@@ -124,7 +125,7 @@ public interface IAuthenticationService {
     );
 
     @FormUrlEncoded
-    @HTTP(method = "DELETE", path = "user/unfollow", hasBody = true)
+    @POST("user/unfollow")
     Call<UnfollowResponse> unfollowUser(
             @Header("Authorization") String token,
             @Field("username") String username
@@ -139,7 +140,7 @@ public interface IAuthenticationService {
     );
 
     @FormUrlEncoded
-    @HTTP(method = "DELETE", path = "user/unblock", hasBody = true)
+    @POST("user/unblock")
     Call<UnblockResponse> unblockUser(
             @Header("Authorization") String token,
             @Field("username") String username
@@ -223,5 +224,10 @@ public interface IAuthenticationService {
     Call<FollowStateResponse> denyRequest(
             @Header("Authorization") String token,
             @Field("username") String username
+    );
+
+    @GET("user/blocked/all")
+    Call<GetBlockedUsersResponse> getBlockedUsers(
+            @Header("Authorization") String token
     );
 }
