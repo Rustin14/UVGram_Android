@@ -41,12 +41,17 @@
     <string name="successfulLogin">¡Inicio de sesión exitoso!</string>
     <string name="passwordFormatError">Contraseña inválida. Debe tener al menos 6 carácteres.</string>
     <string name="incorrectPassword">Contraseña errónea.</string>
+    <string name="passwordsNotMatching">Las contraseñas no coinciden.</string>
     <string name="userNotFound">Usuario no encontrado.</string>
-    <string name="validCharactersUsername">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789_</string>
-    <string name="validCharactersVerificationCode">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789</string>
+    <string name="validCharactersUsername">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_</string>
+    <string name="validCharactersVerificationCode">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789</string>
     <string name="validCharactersFullName">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
-    <string name="validCharactersEmail">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789-@.</string>
-    <string name="validCharactersPhone">123456789</string>
+    <string name="validCharactersEmail">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-@.</string>
+    <string name="validCharactersPhone">0123456789</string>
+    <string name="invalidCodeFormat">Código de verificación no válido.</string>
+    <string name="errorText">Ocurrió un error, vuelva a intentarlo.</string>
+    <string name="invalidPhoneNumber">Número de teléfono debe contener 10 dígitos.</string>
+    <string name="incompleteOperation">No fue posible completar la operación, intente de nuevo.</string>
 
     <style name="errorText">Ha ocurrido un error. Inténtelo de nuevo.</style>
 </resources>

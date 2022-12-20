@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.uvgram.Models.LoginResponses.LoginErrorMessageResponse;
+import com.example.uvgram.Models.LoginResponses.ErrorMessageResponse;
 import com.example.uvgram.Models.LoginResponses.LoginErrorResponse;
 import com.example.uvgram.R;
 import com.example.uvgram.ViewModel.LoginViewModel;
@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Snackbar.make(parentLayout, R.string.passwordFormatError, Snackbar.LENGTH_LONG).show();
                             }
                         } else if (loginResponse.getHttpCode() == 403){
-                            LoginErrorMessageResponse errorMessage = loginResponse.getLoginErrorMessage();
+                            ErrorMessageResponse errorMessage = loginResponse.getLoginErrorMessage();
                             String message = errorMessage.getErrorMessage();
                             if (message.equals("user not found")) {
                                 Snackbar.make(parentLayout, R.string.userNotFound, Snackbar.LENGTH_LONG).show();

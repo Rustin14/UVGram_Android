@@ -1,15 +1,16 @@
 package com.example.uvgram.Activities;
 
+import static com.example.uvgram.Utilities.Validations.checkEmptyTextFields;
+import static com.example.uvgram.Utilities.Validations.validatePhoneNumber;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.uvgram.Models.RegisterVerificationResponse;
 import com.example.uvgram.Models.User;
 import com.example.uvgram.R;
 import com.example.uvgram.ViewModel.RegistrationViewModel;
@@ -22,6 +23,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -34,7 +36,6 @@ public class CompleteRegistrationActivity extends AppCompatActivity {
     Button saveButton;
     Button cancelButton;
     RegistrationViewModel viewModel;
-    private MutableLiveData<RegisterVerificationResponse> verificationResponse = new MutableLiveData<>();
 
     TextInputEditText nameInput;
     TextInputEditText usernameInput;
@@ -42,6 +43,7 @@ public class CompleteRegistrationActivity extends AppCompatActivity {
     TextInputEditText phoneInput;
     TextInputEditText presentationInput;
     TextInputEditText passwordInput;
+    ArrayList<TextInputEditText> inputEditTextsList = new ArrayList<>();
     RelativeLayout parentLayout;
 
     @Override
@@ -75,25 +77,43 @@ public class CompleteRegistrationActivity extends AppCompatActivity {
                         .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                         .build();
         setDateTextFieldListener();
+        createInputTextList();
 
-        saveButton.setOnClickListener(v ->
-                viewModel.signUpVerification(String.valueOf(usernameInput.getText()),
-                        String.valueOf(emailInput.getText())).observe(this, registerVerificationResponse -> {
-                    if (registerVerificationResponse.getMessage()) {
-                        completeUserInformation();
-                        Intent myIntent = new Intent(this, RegisterVerificationActivity.class);
-                        myIntent.putExtra("USER", partialUser);
-                        startActivity(myIntent);
-                    } else {
-                        Snackbar.make(parentLayout, "No fue posible completar la operación, intente de nuevo.", Snackbar.LENGTH_LONG).show();
-                    }
-                })
-        );
+        saveButton.setOnClickListener(v -> {
+            if (checkEmptyTextFields(inputEditTextsList)) {
+                if (validatePhoneNumber(String.valueOf(phoneInput.getText()))) {
+                    viewModel.signUpVerification(String.valueOf(usernameInput.getText()),
+                            String.valueOf(emailInput.getText())).observe(this, registerVerificationResponse -> {
+                        if (registerVerificationResponse.getMessage()) {
+                            completeUserInformation();
+                            Intent myIntent = new Intent(this, RegisterVerificationActivity.class);
+                            myIntent.putExtra("USER", partialUser);
+                            startActivity(myIntent);
+                        } else {
+                            Snackbar.make(parentLayout, R.string.incompleteOperation, Snackbar.LENGTH_LONG).show();
+                        }
+                    });
+                } else {
+                    Snackbar.make(parentLayout, R.string.invalidPhoneNumber, Snackbar.LENGTH_LONG).show();
+                }
+            } else {
+                Snackbar.make(parentLayout, R.string.emptyInputs, Snackbar.LENGTH_LONG).show();
+            }
+        });
 
         cancelButton.setOnClickListener(v -> {
             Intent myIntent = new Intent(this, StartActivity.class);
             startActivity(myIntent);
         });
+    }
+
+    public void createInputTextList() {
+        inputEditTextsList.add(nameInput);
+        inputEditTextsList.add(usernameInput);
+        inputEditTextsList.add(emailInput);
+        inputEditTextsList.add(phoneInput);
+        inputEditTextsList.add(presentationInput);
+        inputEditTextsList.add(passwordInput);
     }
 
     public void setDateTextFieldListener() {

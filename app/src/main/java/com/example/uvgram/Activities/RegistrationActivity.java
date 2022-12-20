@@ -28,9 +28,6 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         contextView = findViewById(R.id.parentLayout);
-
-
-
         nameInput = findViewById(R.id.nameInput);
         emailInput = findViewById(R.id.emailInputText);
         passwordInput = findViewById(R.id.passwordInputText);
@@ -66,19 +63,18 @@ public class RegistrationActivity extends AppCompatActivity {
     private boolean validateInputTexts() {
         if (TextUtils.isEmpty(nameInput.getText()) || TextUtils.isEmpty(emailInput.getText())
                 || TextUtils.isEmpty(passwordInput.getText()) || TextUtils.isEmpty(confirmedPasswordInput.getText())) {
-            System.out.println("Hola.");
-            Snackbar.make(contextView, "No dejes campos vacíos.", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(contextView, R.string.emptyInputs, Snackbar.LENGTH_LONG).show();
             return false;
         } else {
             if (String.valueOf(passwordInput.getText()).length() >= 6 && String.valueOf(confirmedPasswordInput.getText()).length() >= 6) {
                 if (TextUtils.equals(String.valueOf(passwordInput.getText()), String.valueOf(confirmedPasswordInput.getText()))) {
                     return true;
                 } else {
-                    Snackbar.make(contextView, "Las contraseñas no son iguales.", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(contextView, R.string.passwordsNotMatching, Snackbar.LENGTH_LONG).show();
                     return false;
                 }
             } else {
-                Snackbar.make(contextView, "Contraseña debe tener al menos 6 dígitos.", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(contextView, R.string.passwordFormatError, Snackbar.LENGTH_LONG).show();
                 return false;
             }
         }

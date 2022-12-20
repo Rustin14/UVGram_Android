@@ -2,7 +2,7 @@ package com.example.uvgram.Models.LoginResponses;
 
 import com.google.gson.annotations.SerializedName;
 
-public class LoginErrorMessageResponse {
+public class ErrorMessageResponse {
 
     @SerializedName("message")
     String errorMessage;

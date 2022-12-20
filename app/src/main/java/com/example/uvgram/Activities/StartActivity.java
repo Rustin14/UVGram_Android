@@ -1,7 +1,5 @@
 package com.example.uvgram.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +11,8 @@ import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.uvgram.R;
 
@@ -26,7 +26,7 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inicio_sesion);
+        setContentView(R.layout.activity_start);
         context = getBaseContext();
         imageViewSlides = findViewById(R.id.imageViewSlides);
         int imagesToShow[] = {R.drawable.pxl_20221001_231154257, R.drawable.pxl_20221014_215725107};

@@ -17,6 +17,14 @@ public class Validations {
         return true;
     }
 
+    public static boolean validatePhoneNumber(String phoneNumber) {
+        if (phoneNumber.matches("^\\d{10}$")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     
 
 }

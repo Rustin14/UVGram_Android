@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <data>
-
-    </data>
 
     <LinearLayout
         android:id="@+id/imagesLayout"
@@ -43,18 +41,16 @@
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent">
 
-                <com.google.android.material.button.MaterialButton
+                <Button
                     android:id="@+id/loginButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/startButtonVerticalMargins"
                     android:layout_marginBottom="@dimen/startButtonVerticalMargins"
                     android:width="@dimen/startButtonsSize"
-                    android:background="@color/uvGreen"
-                    android:text="@string/loginButton"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/source_sans_pro_semibold"/>
-
+                    android:textSize="16dp"
+                    android:backgroundTint="@color/uvGreen"
+                    android:text="@string/loginButton"/>
 
                 <Button
                     android:id="@+id/signUpButton"
@@ -62,13 +58,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/startButtonVerticalMargins"
                     android:width="@dimen/startButtonsSize"
-                    android:background="@color/uvBlue"
                     android:text="@string/signUp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/source_sans_pro_black"/>
+                    android:textSize="16dp"
+                    android:backgroundTint="@color/uvBlue"
+                    android:textColor="@color/white"/>
 
             </LinearLayout>
 
     </LinearLayout>
 
-</layout>
+</RelativeLayout>

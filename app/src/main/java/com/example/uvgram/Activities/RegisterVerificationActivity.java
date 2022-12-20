@@ -8,12 +8,12 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.uvgram.Models.RegisterResponse;
 import com.example.uvgram.Models.User;
 import com.example.uvgram.R;
+import com.example.uvgram.ViewModel.LoginViewModel;
+import com.example.uvgram.ViewModel.LoginViewModelFactory;
 import com.example.uvgram.ViewModel.RegistrationViewModel;
 import com.example.uvgram.ViewModel.RegistrationViewModelFactory;
 import com.google.android.material.snackbar.Snackbar;
@@ -26,8 +26,7 @@ public class RegisterVerificationActivity extends AppCompatActivity {
     Button sendButton;
     View contextView;
     RegistrationViewModel viewModel;
-    private MutableLiveData<RegisterResponse> registerResponse = new MutableLiveData<>();
-
+    LoginViewModel loginViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,36 +37,38 @@ public class RegisterVerificationActivity extends AppCompatActivity {
         contextView = findViewById(R.id.parentLayout);
 
         verificationInput = findViewById(R.id.verificationInput);
-        sendButton = findViewById(R.id.sendButton);
+        sendButton = findViewById(R.id.sendVerificationButton);
 
         viewModel = new ViewModelProvider(this,
                 new RegistrationViewModelFactory(getApplication())).get(RegistrationViewModel.class);
 
+        loginViewModel = new ViewModelProvider(this,
+                new LoginViewModelFactory(getApplication())).get(LoginViewModel.class);
+
         sendButton.setOnClickListener(v -> {
-            viewModel.signUpUser(userToRegister,
-                String.valueOf(verificationInput.getText())).observe(this, registerResponse -> {
-                    String message = registerResponse.getMessage();
-                    if (message.equals("New entity was added")) {
+            if (!String.valueOf(verificationInput.getText()).isEmpty()) {
+                viewModel.signUpUser(userToRegister,
+                        String.valueOf(verificationInput.getText())).observe(this, registerResponse -> {
+                    if (registerResponse.getMessage().equals("New entity was added")) {
                         SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString("USERNAME", userToRegister.getUsername());
+                        loginViewModel.login(userToRegister.getUsername(), userToRegister.getPassword())
+                                .observe(this, loginResponse -> {
+                                    editor.putString("ACCESS_TOKEN", loginResponse.getLoginMessage().getAccessToken());
+                                    editor.putString("REFRESH_TOKEN", loginResponse.getLoginMessage().getRefreshToken());
+                                    editor.putString("USERNAME", userToRegister.getUsername());
+                                    editor.commit();
+                                });
                         Intent myIntent = new Intent(getBaseContext(), HomepageActivity.class);
                         startActivity(myIntent);
-                    } else {
-                        Snackbar.make(contextView, message, Snackbar.LENGTH_LONG).show();
+                    } else if (registerResponse.getHttpCode() == 403) {
+                        Snackbar.make(contextView, R.string.invalidCodeFormat, Snackbar.LENGTH_LONG).show();
                     }
                 });
-        });
-
-        registerResponse.observe(this, registerResponse -> {
-            String message = registerResponse.getMessage();
-            if (message.equals("New entity was added")) {
-                Intent myIntent = new Intent(getBaseContext(), HomepageActivity.class);
-                myIntent.putExtra("USER", userToRegister);
-                startActivity(myIntent);
             } else {
-                Snackbar.make(contextView, message, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(contextView, R.string.emptyInputs, Snackbar.LENGTH_LONG).show();
             }
         });
+
     }
 
 }

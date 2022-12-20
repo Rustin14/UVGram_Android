@@ -16,15 +16,15 @@ public class LoginResponse {
         this.loginErrorResponse = loginErrorResponse;
     }
 
-    public LoginErrorMessageResponse getLoginErrorMessage() {
+    public ErrorMessageResponse getLoginErrorMessage() {
         return loginErrorMessage;
     }
 
-    public void setLoginErrorMessage(LoginErrorMessageResponse loginErrorMessage) {
+    public void setLoginErrorMessage(ErrorMessageResponse loginErrorMessage) {
         this.loginErrorMessage = loginErrorMessage;
     }
 
-    LoginErrorMessageResponse loginErrorMessage;
+    ErrorMessageResponse loginErrorMessage;
     int httpCode;
 
     public int getHttpCode() {

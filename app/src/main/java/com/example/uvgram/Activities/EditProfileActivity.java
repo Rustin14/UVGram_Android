@@ -83,6 +83,8 @@ public class EditProfileActivity extends AppCompatActivity {
                         Snackbar.make(relativeLayout, "Ocurrió un problema. Vuelva a intentarlo.", Snackbar.LENGTH_SHORT);
                     }
                 });
+            } else {
+                Snackbar.make(relativeLayout, R.string.emptyInputs, Snackbar.LENGTH_SHORT);
             }
         });
     }

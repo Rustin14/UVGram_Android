@@ -53,7 +53,7 @@ public class PublicationDetailActivity extends AppCompatActivity {
         usernameTextView = findViewById(R.id.usernameText);
         descriptionTextView = findViewById(R.id.descriptionText);
         postImageView = findViewById(R.id.postImage);
-        sendButton = findViewById(R.id.sendButton);
+        sendButton = findViewById(R.id.sendVerificationButton);
         commentEditText = findViewById(R.id.commentEdit);
         commentButton = findViewById(R.id.commentButton);
         likeIcon = findViewById(R.id.likeIcon);

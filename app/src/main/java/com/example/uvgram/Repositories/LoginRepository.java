@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.uvgram.Connection.UVGramAPIAdapter;
 import com.example.uvgram.Connection.UVGramDatabase;
-import com.example.uvgram.Models.LoginResponses.LoginErrorMessageResponse;
+import com.example.uvgram.Models.LoginResponses.ErrorMessageResponse;
 import com.example.uvgram.Models.LoginResponses.LoginErrorResponse;
 import com.example.uvgram.Models.LoginResponses.LoginResponse;
 import com.google.gson.Gson;
@@ -50,7 +50,7 @@ public class LoginRepository {
                 } else if (response.code() == DATA_NOT_MATCHING) {
                     LoginResponse dataErrorResponse = new LoginResponse();
                     try {
-                        dataErrorResponse.setLoginErrorMessage(gson.fromJson(response.errorBody().string(), LoginErrorMessageResponse.class));
+                        dataErrorResponse.setLoginErrorMessage(gson.fromJson(response.errorBody().string(), ErrorMessageResponse.class));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

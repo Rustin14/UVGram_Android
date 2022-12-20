@@ -116,6 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/passwordTextField"
                 android:text="@string/forgotPassword"
+                android:visibility="gone"
                 android:layout_marginTop="15dp"
                 android:layout_marginLeft="10dp"/>
 
@@ -128,6 +129,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/clickHereLink"
+                android:visibility="gone"
                 android:layout_marginTop="1dp"
                 android:textColor="@color/uvBlue"
                 />

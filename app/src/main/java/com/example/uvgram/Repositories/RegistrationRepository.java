@@ -8,9 +8,14 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.uvgram.Connection.UVGramAPIAdapter;
+import com.example.uvgram.Models.LoginResponses.ErrorMessageResponse;
 import com.example.uvgram.Models.RegisterResponse;
 import com.example.uvgram.Models.RegisterVerificationResponse;
 import com.example.uvgram.Models.User;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,6 +53,7 @@ public class RegistrationRepository {
     }
 
     public MutableLiveData<RegisterResponse> signUpUser(User userToRegister, String verificationCode) {
+        Gson gson = new GsonBuilder().create();
         Call<RegisterResponse> signUpCall = UVGramAPIAdapter
                 .getApiService()
                 .postRegister(
@@ -65,6 +71,16 @@ public class RegistrationRepository {
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
                 if (response.isSuccessful()) {
                     registerResponse.setValue(response.body());
+                    registerResponse.getValue().setHttpCode(response.code());
+                } else {
+                    RegisterResponse dataErrorResponse = new RegisterResponse();
+                    try {
+                        dataErrorResponse.setErrorMessage(gson.fromJson(response.errorBody().string(), ErrorMessageResponse.class));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    dataErrorResponse.setHttpCode(response.code());
+                    registerResponse.setValue(dataErrorResponse);
                 }
             }
             @Override
